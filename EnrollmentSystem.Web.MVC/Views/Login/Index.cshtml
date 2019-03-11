@@ -1,0 +1,44 @@
+﻿@model EnrollmentSystem.Web.MVC.ViewModels.LoginFormViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_BlankLayout.cshtml";
+    Html.EnableClientValidation(true);
+}
+
+@section styles
+{
+    @Styles.Render("~/Content/css/splitscreen")
+}
+
+<div class="row no-gutter">
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+    <div class="col-md-8 col-lg-6">
+        <div class="login d-flex align-items-center py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 col-lg-8 mx-auto">
+                        <h3 class="login-heading text-center mb-4">Welcome back!</h3>
+                        @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+                        {
+                            <div class="form-label-group">
+                                @Html.EditorFor(x => x.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.LabelFor(x => x.EmailAddress)
+                                @Html.ValidationMessageFor(x => x.EmailAddress)
+                            </div>
+                            <div class="form-label-group">
+                                @Html.EditorFor(x => x.Password, "", new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.LabelFor(x => x.Password)
+                                @Html.ValidationMessageFor(x => x.Password)
+                            </div>
+                            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign in</button>
+                            <div class="text-center">
+                                @Html.ActionLink("Forgot password?", "Index", "ForgotPassword", "", new { @class = "small" })<br />
+                                <small>Not yet a member?</small> @Html.ActionLink("Sign Up", "Index", "Register", "", new { @class = "small" })
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

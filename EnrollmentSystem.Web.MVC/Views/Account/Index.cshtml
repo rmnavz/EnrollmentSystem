@@ -1,0 +1,112 @@
+﻿@model EnrollmentSystem.Web.MVC.ViewModels.AccountViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                    <div class="card-title row">
+                        <div class="col-10">
+                            <h4>Account</h4>
+                        </div>
+                        <div class="col-2">
+                            @Html.ActionLink("Edit","Edit","Account", null, new Dictionary<string, object> { { "class", "btn btn-block btn-secondary loadDynamicModal" }, { "data-model", "{}" } })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Personal Information</h4>
+
+                                    <div class="row">
+                                        <div class="col text-center">
+                                            <img src="@Url.Content("Account/ProfileImage")" height="150" width="150" class="rounded-circle" alt="ProfileImage" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            @Html.DisplayNameFor(x => x.FirstName)
+                                        </div>
+                                        <div class="col">
+                                            @Html.DisplayTextFor(x => x.FirstName)
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            @Html.DisplayNameFor(x => x.LastName)
+                                        </div>
+                                        <div class="col">
+                                            @Html.DisplayTextFor(x => x.LastName)
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            @Html.DisplayNameFor(x => x.EmailAddress)
+                                        </div>
+                                        <div class="col">
+                                            @Html.DisplayTextFor(x => x.EmailAddress)
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            @Html.DisplayNameFor(x => x.Gender)
+                                        </div>
+                                        <div class="col">
+                                            @Html.DisplayTextFor(x => x.Gender)
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            @Html.DisplayNameFor(x => x.BirthDate)
+                                        </div>
+                                        <div class="col">
+                                            @Html.DisplayTextFor(x => x.BirthDate)
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Account Details</h4>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            @Html.DisplayNameFor(x => x.AccountType)
+                                        </div>
+                                        <div class="col">
+                                            @Html.DisplayTextFor(x => x.AccountType)
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col">
+                        @Html.DisplayNameFor(x => x.Created): @Html.DisplayTextFor(x => x.Created)
+                    </div>
+                    <div class="col">
+                        @Html.DisplayNameFor(x => x.Modified): @Html.DisplayTextFor(x => x.Modified)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

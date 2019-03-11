@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @ViewBag.ApplicationName</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/css/sidebar")
+    @RenderSection("styles", required: false)
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @Html.Partial("Partials/_LoadingOverlay")
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading">
+                @ViewBag.ApplicationName
+            </div>
+            <div class="list-group list-group-flush">
+                @Html.ActionLink("Home", "Index", "Home", "", new { @class = "list-group-item list-group-item-action bg-light" })
+                @Html.Partial("Partials/_Menus")
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav class="navbar navbar-expand navbar-light bg-light border-bottom">
+                <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+                    <ul class="navbar-nav ml-auto mt-0">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="AccountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="@Url.Content("Account/ProfileImage")" height="25" width="25" class="rounded-circle" alt="ProfileImage">
+                                    <span class="d-none d-sm-inline">@User.Identity.Name</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="AccountDropdown">
+                                    @Html.ActionLink("Account", "Index", "Account", "", new { @class = "dropdown-item" })
+                                    <div class="dropdown-divider"></div>
+                                    @Html.ActionLink("Logout", "Index", "Logout", "", new { @class = "dropdown-item" })
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">@Html.ActionLink("Login", "Index", "Login")</li>
+                        }
+                    </ul>
+            </nav>
+
+            <div class="container mt-3">
+                @RenderBody()
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/PageTransition")
+    @RenderSection("scripts", required: false)
+
+    @Html.Partial("Partials/_DynamicModal")
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+﻿@model EnrollmentSystem.Web.MVC.ViewModels.RegisterFormViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_BlankLayout.cshtml";
+    Html.EnableClientValidation(true);
+}   
+
+@section styles
+{
+    @Styles.Render("~/Content/css/splitscreen")
+}
+
+<div class="row no-gutter">
+    <div class="col-md-8 col-lg-6">
+        <div class="login d-flex align-items-center py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 col-lg-8 mx-auto">
+                        <h3 class="login-heading text-center mb-4">Register</h3>
+                        @using (Html.BeginForm("Register", "Register", FormMethod.Post))
+                        {
+                            <div class="form-label-group">
+                                @Html.EditorFor(x => x.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.LabelFor(x => x.FirstName)
+                                @Html.ValidationMessageFor(x => x.FirstName)
+                            </div>
+                            <div class="form-label-group">
+                                @Html.EditorFor(x => x.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.LabelFor(x => x.LastName)
+                                @Html.ValidationMessageFor(x => x.LastName)
+                            </div>
+                            <div class="form-label-group">
+                                @Html.EnumDropDownListFor(x => x.Gender, new { @class = "form-control" })
+                                @Html.LabelFor(x => x.Gender)
+                            </div>
+
+                            if (User.IsInRole("Administrator"))
+                            {
+                                <div class="form-label-group">
+                                    @Html.EnumDropDownListFor(x => x.AccountType, new { @class = "form-control" })
+                                    @Html.LabelFor(x => x.AccountType)
+                                </div>
+                            }
+                            else
+                            {
+                                @Html.HiddenFor(x => x.AccountType)
+                            }
+
+                                <div class="form-label-group">
+                                    @Html.EditorFor(x => x.EmailAddress, "", new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.LabelFor(x => x.EmailAddress)
+                                    @Html.ValidationMessageFor(x => x.EmailAddress)
+                                </div>
+                                <div class="form-label-group">
+                                    @Html.EditorFor(x => x.Password, "", new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.LabelFor(x => x.Password)
+                                    @Html.ValidationMessageFor(x => x.Password)
+                                </div>
+                                <div class="form-label-group">
+                                    @Html.EditorFor(x => x.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.LabelFor(x => x.ConfirmPassword)
+                                    @Html.ValidationMessageFor(x => x.ConfirmPassword)
+                                </div>
+                            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign up</button>
+                            <div class="text-center">
+                                <small>Already a member?</small> @Html.ActionLink("Sign In","Index","Login","", new { @class = "small" })
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+</div>
