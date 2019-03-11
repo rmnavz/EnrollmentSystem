@@ -37,6 +37,13 @@ namespace EnrollmentSystem.Web.MVC.Mappings
                     .ForPath(g => g.AccountInformation.BirthDate, map => map.MapFrom(vm => vm.BirthDate))
                     .ForPath(g => g.AccountInformation.Gender, map => map.MapFrom(vm => vm.Gender))
                     .AfterMap<AccountModelAction>();
+
+            CreateMap<CreateAccountFormViewModel, AccountModel>()
+                    .ForPath(g => g.AccountInformation.FirstName, map => map.MapFrom(vm => vm.FirstName))
+                    .ForPath(g => g.AccountInformation.LastName, map => map.MapFrom(vm => vm.LastName))
+                    .ForMember(g => g.EmailAddress, map => map.MapFrom(vm => vm.EmailAddress))
+                    .ForPath(g => g.AccountInformation.Gender, map => map.MapFrom(vm => vm.Gender))
+                    .ForMember(g => g.AccountType, map => map.MapFrom(vm => vm.AccountType));
         }
     }
 }

@@ -10,11 +10,12 @@ namespace EnrollmentSystem.Web.MVC.ViewModels
 {
     public class AccountViewModel
     {
+        public int ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
-        public Image ProfileImage { get; set; }
+        public string ProfileImage { get; set; }
         [DisplayFormat(ConvertEmptyStringToNull = true, NullDisplayText = "Not Provided")]
         public string BirthDate { get; set; }
         public GenderEnum Gender { get; set; }

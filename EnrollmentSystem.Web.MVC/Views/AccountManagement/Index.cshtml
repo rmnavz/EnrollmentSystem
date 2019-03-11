@@ -1,0 +1,31 @@
+﻿@model IEnumerable<EnrollmentSystem.Web.MVC.ViewModels.AccountViewModel>
+
+<div class="row mb-2">
+    <div class="col">
+        @Html.ActionLink("Create New Account","Create","AccountManagement", null, new Dictionary<string, object> { { "class", "btn btn-block btn-secondary loadDynamicModal" }, { "data-model", "{}" } })
+    </div>
+</div>
+<div class="row mb-2">
+    <div class="col">
+        <div class="card-columns">
+            @foreach(var Account in Model)
+            {
+                <div class="card h-100">
+                    <div class="card-body">
+                        <img class="rounded-circle" src="@Account.ProfileImage" height="150" width="150" alt="@Account.EmailAddress">
+                        <h4 class="card-title">@Account.FirstName @Account.LastName</h4>
+                        <p class="card-text">@Account.EmailAddress</p>
+                        @if (Account.Removed == null)
+                        {
+                            @Html.ActionLink("Remove", "Remove", "AccountManagement", new { ID = Account.ID }, new { @class = "btn btn-block btn-danger" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Recover", "Recover", "AccountManagement", new { ID = Account.ID }, new { @class = "btn btn-block btn-info" })
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

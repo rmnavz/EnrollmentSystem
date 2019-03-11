@@ -10,6 +10,7 @@ namespace EnrollmentSystem.Web.MVC.Mappings
         public DomainToViewModelMappingProfile()
         {
             CreateMap<AccountModel, AccountViewModel>()
+                .ForMember(g => g.ID, map => map.MapFrom(vm => vm.ID))
                 .ForMember(g => g.FirstName, map => map.MapFrom(vm => vm.AccountInformation.FirstName))
                 .ForMember(g => g.LastName, map => map.MapFrom(vm => vm.AccountInformation.LastName))
                 .ForMember(g => g.EmailAddress, map => map.MapFrom(vm => vm.EmailAddress))
@@ -21,9 +22,7 @@ namespace EnrollmentSystem.Web.MVC.Mappings
                 .BeforeMap(
                     (Model, ViewModel) => ViewModel.BirthDate = Model.AccountInformation.BirthDate != null ? Model.AccountInformation.BirthDate.Value.ToString("MMMM d, yyyy") : null
                 )
-                .AfterMap(
-                    (Model, ViewModel) => ViewModel.ProfileImage = Model.AccountInformation.ProfileImage != null ? new Conversion().ByteArrayToImage(Model.AccountInformation.ProfileImage) : null
-                );
+                .AfterMap<AccountViewModelAction>();
 
             CreateMap<AccountModel, EditAccountFormViewModel>()
                 .ForMember(g => g.FirstName, map => map.MapFrom(vm => vm.AccountInformation.FirstName))

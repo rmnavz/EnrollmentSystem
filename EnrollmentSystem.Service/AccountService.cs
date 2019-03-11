@@ -20,6 +20,8 @@ namespace EnrollmentSystem.Service
         AccountModel GetAccount(string emailAddress);
         void CreateAccount(AccountModel account);
         void UpdateAccount(AccountModel account);
+        void RemoveAccount(AccountModel account);
+        void RecoverAccount(AccountModel account);
         void SaveAccount();
     }
 
@@ -37,7 +39,7 @@ namespace EnrollmentSystem.Service
         public AccountModel Login(string emailAddress, string password)
         {
             AccountModel Account = accountRepository.GetAccountByEmailAddress(emailAddress);
-            if(PasswordHasher.VerifyPassword(password, Account.Salt, Account.Password))
+            if(PasswordHasher.VerifyPassword(password, Account.Salt, Account.Password) && Account.Removed == null)
             {
                 return Account;
             }
@@ -59,6 +61,18 @@ namespace EnrollmentSystem.Service
 
         public void UpdateAccount(AccountModel account)
         {
+            accountRepository.Update(account);
+        }
+
+        public void RemoveAccount(AccountModel account)
+        {
+            account.Removed = DateTime.UtcNow;
+            accountRepository.Update(account);
+        }
+
+        public void RecoverAccount(AccountModel account)
+        {
+            account.Removed = null;
             accountRepository.Update(account);
         }
 
