@@ -21,5 +21,6 @@ namespace EnrollmentSystem.Web.MVC.ViewModels
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? BirthDate { get; set; }
         public GenderEnum Gender { get; set; }
+        public AccountTypeEnum AccountType { get; set; }
     }
 }

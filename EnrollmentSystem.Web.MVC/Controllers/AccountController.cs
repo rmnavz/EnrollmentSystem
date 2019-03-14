@@ -65,7 +65,6 @@ namespace EnrollmentSystem.Web.MVC.Controllers
                 });
             }
 
-            
         }
     }
 }

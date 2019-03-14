@@ -14,7 +14,9 @@ namespace EnrollmentSystem.Web.MVC.Controllers
 {
     public class ControllerBase : Controller
     {
+        protected string _SearchQuery = null;
         protected IAccountService _AccountService;
+        protected ISubjectService _SubjectService;
 
         public ControllerBase()
         {
@@ -40,7 +42,21 @@ namespace EnrollmentSystem.Web.MVC.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            _SearchQuery = HttpContext.Request.QueryString.Get("Search");
+
             var Model = filterContext.ActionParameters.SingleOrDefault(ap => ap.Key.ToLower() == "model").Value;
+            var ControllerName = filterContext.RouteData.GetRequiredString("controller");
+
+            ViewBag.Title = string.Join(
+                                string.Empty,
+                                ControllerName.Select((x, i) => (
+                                     char.IsUpper(x) && i > 0 &&
+                                     (char.IsLower(ControllerName[i - 1]) || (i < ControllerName.Count() - 1 && char.IsLower(ControllerName[i + 1])))
+                                ) ? " " + x : x.ToString()));
+
+            ViewBag.CurrentController = ControllerName;
+            ViewBag.SearchValue = _SearchQuery;
+
             base.OnActionExecuting(filterContext);
         }
     }

@@ -18,6 +18,8 @@ namespace EnrollmentSystem.Web.MVC.Mappings
 
         public ViewModelToDomainMappingProfile()
         {
+            #region AccountModel
+
             CreateMap<LoginFormViewModel, AccountModel>()
                     .ForMember(g => g.EmailAddress, map => map.MapFrom(vm => vm.EmailAddress))
                     .ForMember(g => g.Password, map => map.MapFrom(vm => vm.Password));
@@ -36,6 +38,7 @@ namespace EnrollmentSystem.Web.MVC.Mappings
                     .ForMember(g => g.EmailAddress, map => map.MapFrom(vm => vm.EmailAddress))
                     .ForPath(g => g.AccountInformation.BirthDate, map => map.MapFrom(vm => vm.BirthDate))
                     .ForPath(g => g.AccountInformation.Gender, map => map.MapFrom(vm => vm.Gender))
+                    .ForMember(g => g.AccountType, map => map.MapFrom(vm => vm.AccountType))
                     .AfterMap<AccountModelAction>();
 
             CreateMap<CreateAccountFormViewModel, AccountModel>()
@@ -44,6 +47,18 @@ namespace EnrollmentSystem.Web.MVC.Mappings
                     .ForMember(g => g.EmailAddress, map => map.MapFrom(vm => vm.EmailAddress))
                     .ForPath(g => g.AccountInformation.Gender, map => map.MapFrom(vm => vm.Gender))
                     .ForMember(g => g.AccountType, map => map.MapFrom(vm => vm.AccountType));
+
+            #endregion
+
+            #region SubjectModel
+
+            CreateMap<CreateSubjectFormViewModel, SubjectModel>()
+                    .ForMember(g => g.Code, map => map.MapFrom(vm => vm.Code))
+                    .ForMember(g => g.Title, map => map.MapFrom(vm => vm.Title))
+                    .ForMember(g => g.Description, map => map.MapFrom(vm => vm.Description))
+                    .ForMember(g => g.Unit, map => map.MapFrom(vm => vm.Unit));
+
+            #endregion
         }
     }
 }

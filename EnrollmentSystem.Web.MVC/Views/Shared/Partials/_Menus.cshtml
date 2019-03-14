@@ -1,7 +1,7 @@
 ﻿@if (User.IsInRole("Administrator"))
 {
-    @Html.ActionLink("Account Management", "Index", "AccountManagement", "", new { @class = "list-group-item list-group-item-action bg-light" })
-    @Html.ActionLink("Subject Management", "Index", "SubjectManagement", "", new { @class = "list-group-item list-group-item-action bg-light" })
+    @Html.NavigationMenuActionLink("Account Management", "Index", "AccountManagement", "", new { @class = "list-group-item list-group-item-action bg-light" })
+    @Html.NavigationMenuActionLink("Subject Management", "Index", "SubjectManagement", "", new { @class = "list-group-item list-group-item-action bg-light" })
 }
 else
 {

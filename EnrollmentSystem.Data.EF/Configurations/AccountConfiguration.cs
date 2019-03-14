@@ -20,6 +20,9 @@ namespace EnrollmentSystem.Data.EF.Configurations
 
             HasOptional(x => x.AccountInformation)
                 .WithRequired(x => x.Account);
+
+            HasOptional(x => x.Department)
+                .WithMany(x => x.Accounts);
         }
 
     }

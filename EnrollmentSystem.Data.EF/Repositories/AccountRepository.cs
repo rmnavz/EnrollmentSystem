@@ -1,9 +1,10 @@
-﻿using EnrollmentSystem.Common.Code.Security;
-using EnrollmentSystem.Data.EF.Infrastructure;
+﻿using EnrollmentSystem.Data.EF.Infrastructure;
 using EnrollmentSystem.Model;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace EnrollmentSystem.Data.EF.Repositories
 {
@@ -28,6 +29,14 @@ namespace EnrollmentSystem.Data.EF.Repositories
         public bool IsEmailExist(string EmailAddress)
         {
             return DbContext.Accounts.Where(x => x.EmailAddress == EmailAddress).Count() > 0 ? true : false;
+        }
+
+        public override IEnumerable<AccountModel> GetMany(Expression<Func<AccountModel, bool>> where)
+        {
+            return this.DbContext.Accounts
+                .Include(x => x.AccountInformation)
+                .Where(where)
+                .ToList();
         }
     }
 

@@ -43,7 +43,9 @@
   <ItemGroup>
     <Compile Include="Models\AccountInformationModel.cs" />
     <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\DepartmentModel.cs" />
     <Compile Include="Models\ModelBase.cs" />
+    <Compile Include="Models\SubjectModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

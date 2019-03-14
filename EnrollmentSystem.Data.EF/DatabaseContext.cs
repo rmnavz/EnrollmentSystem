@@ -18,6 +18,8 @@ namespace EnrollmentSystem.Data.EF
 
         public DbSet<AccountModel> Accounts { get; set; }
         public DbSet<AccountInformationModel> AccountInformation { get; set; }
+        public DbSet<DepartmentModel> Departments { get; set; }
+        public DbSet<SubjectModel> Subjects { get; set; }
 
         public virtual void Commit()
         {
@@ -29,6 +31,8 @@ namespace EnrollmentSystem.Data.EF
         {
             modelBuilder.Configurations.Add(new AccountConfiguration());
             modelBuilder.Configurations.Add(new AccountInformationConfiguration());
+            modelBuilder.Configurations.Add(new DepartmentConfiguration());
+            modelBuilder.Configurations.Add(new SubjectConfiguration());
         }
 
         public void Audit()

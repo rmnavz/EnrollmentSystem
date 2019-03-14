@@ -4,10 +4,7 @@ using EnrollmentSystem.Data.EF.Repositories;
 using EnrollmentSystem.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnrollmentSystem.Service
 {
@@ -16,6 +13,7 @@ namespace EnrollmentSystem.Service
         AccountModel Login(string emailAddress, string password);
         bool IsEmailExist(string EmailAddress);
         IEnumerable<AccountModel> GetAccounts();
+        IEnumerable<AccountModel> GetAccounts(string keyword);
         AccountModel GetAccount(int id);
         AccountModel GetAccount(string emailAddress);
         void CreateAccount(AccountModel account);
@@ -79,6 +77,23 @@ namespace EnrollmentSystem.Service
         public IEnumerable<AccountModel> GetAccounts()
         {
             return accountRepository.GetAll();
+        }
+
+        public IEnumerable<AccountModel> GetAccounts(string keyword)
+        {
+            if(string.IsNullOrEmpty(keyword))
+            {
+                return GetAccounts();
+            }
+            else
+            {
+                return accountRepository.GetMany(x =>
+                    x.EmailAddress.Contains(keyword) ||
+                    x.AccountInformation.FirstName.Contains(keyword) ||
+                    x.AccountInformation.LastName.Contains(keyword)
+                );
+            }
+            
         }
 
         public AccountModel GetAccount(int id)

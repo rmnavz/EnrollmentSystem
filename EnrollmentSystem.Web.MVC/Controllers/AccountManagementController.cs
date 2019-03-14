@@ -21,10 +21,7 @@ namespace EnrollmentSystem.Web.MVC.Controllers
             _AccountService = AccountService;
         }
         // GET: AccountManagement
-        public ActionResult Index()
-        {
-            return View(Mapper.Map<IEnumerable<AccountModel>,IEnumerable<AccountViewModel>>(_AccountService.GetAccounts()));
-        }
+        public ActionResult Index() => View(Mapper.Map<IEnumerable<AccountModel>, IEnumerable<AccountViewModel>>(_AccountService.GetAccounts(_SearchQuery).Where(x => x.Removed == null).ToList()));
 
         public ActionResult Create()
         {
@@ -32,7 +29,7 @@ namespace EnrollmentSystem.Web.MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(CreateAccountFormViewModel Model)
+        public ActionResult Create(CreateAccountFormViewModel Model)
         {
             if (!ModelState.IsValid) { return View(Model); }
 
@@ -45,14 +42,12 @@ namespace EnrollmentSystem.Web.MVC.Controllers
 
             try
             {
-                var Email = new EmailHelper();
-                Email.NewAccountTemplate();
-                await Email.SendMail("New Acccount Created", Account.EmailAddress);
+                
 
                 return PartialView("Partials/_MessageModal", new MessageModal()
                 {
                     Title = "Dialog Message",
-                    Message = "Account saved successfully"
+                    Message = "Account created successfully"
                 });
             }
             catch(Exception ex)
@@ -66,12 +61,65 @@ namespace EnrollmentSystem.Web.MVC.Controllers
             }
         }
 
+        public ActionResult Edit(int ID)
+        {
+            return View(Mapper.Map<AccountModel,EditAccountFormViewModel>(_AccountService.GetAccount(ID)));
+        }
+
+        [HttpPost]
+        public ActionResult Edit(EditAccountFormViewModel Model)
+        {
+            if (!ModelState.IsValid) { return View(Model); }
+
+            AccountModel Account = _AccountService.GetAccount(Model.EmailAddress);
+
+            Mapper.Map(Model, Account);
+
+            try
+            {
+                _AccountService.UpdateAccount(Account);
+                _AccountService.SaveAccount();
+
+                return PartialView("Partials/_MessageModal", new MessageModal()
+                {
+                    Title = "Dialog Message",
+                    Message = "Account saved successfully"
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return PartialView("Partials/_MessageModal", new MessageModal()
+                {
+                    Title = "Dialog Message",
+                    Message = "Something went wrong"
+                });
+            }
+        }
+
         public ActionResult Remove(int ID)
         {
-            _AccountService.RemoveAccount(_AccountService.GetAccount(ID));
-            _AccountService.SaveAccount();
+            try
+            {
+                _AccountService.RemoveAccount(_AccountService.GetAccount(ID));
+                _AccountService.SaveAccount();
 
-            return RedirectToAction("Index", "AccountManagement");
+                return PartialView("Partials/_MessageModal", new MessageModal()
+                {
+                    Title = "Dialog Message",
+                    Message = "Account removed successfully"
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return PartialView("Partials/_MessageModal", new MessageModal()
+                {
+                    Title = "Dialog Message",
+                    Message = "Something went wrong"
+                });
+            }
+
         }
 
         public ActionResult Recover(int ID)

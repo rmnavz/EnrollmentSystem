@@ -1,0 +1,37 @@
+﻿@model IEnumerable<SubjectViewModel>
+
+<div class="row mb-2">
+    <div class="col">
+        @Html.FontAwesomeActionLink("fas fa-plus", "New Subject", "Create", "SubjectManagement", null, new { @class = "btn btn-block btn-primary loadDynamicModal" })
+    </div>
+</div>
+
+<div id="result-wrapper">
+    @if (Model.Count() > 0)
+    {
+        foreach (var Subject in Model)
+        {
+            <div class="row mb-2">
+                <div class="col-12">
+                    <div class="card card-inverse">
+                        <div class="card-block">
+                            <div class="row mb-2">
+                                <div class="col-md-8 col-sm-8">
+                                    <h2 class="card-title">Title: @Subject.Title</h2>
+                                    <p class="card-text"><strong>Code: </strong> @Subject.Code </p>
+                                </div>
+                                <div class="col-md-4 col-sm-4 text-center">
+                                    <p class="card-text">@Subject.Description</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <h1 class="text-center">No Results</h1>
+    }
+</div>

@@ -24,6 +24,11 @@
     min-width: 100vw;
 }
 
+.list-group-item-action.selected {
+    color: #f8f9fa !important;
+    background: #495057 !important;
+}
+
 #wrapper.toggled #sidebar-wrapper {
     margin-left: 0;
 }

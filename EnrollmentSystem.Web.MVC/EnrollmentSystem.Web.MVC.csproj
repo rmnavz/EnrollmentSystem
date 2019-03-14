@@ -181,6 +181,7 @@
     <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Controllers\SubjectManagementController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -193,9 +194,11 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\CreateAccountFormViewModel.cs" />
+    <Compile Include="ViewModels\CreateSubjectFormViewModel.cs" />
     <Compile Include="ViewModels\EditAccountFormViewModel.cs" />
     <Compile Include="ViewModels\LoginFormViewModel.cs" />
     <Compile Include="ViewModels\RegisterFormViewModel.cs" />
+    <Compile Include="ViewModels\SubjectViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Sidebar.css" />
@@ -203,6 +206,38 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Libraries\font-awesome\css\all.css" />
+    <Content Include="Libraries\font-awesome\css\all.min.css" />
+    <Content Include="Libraries\font-awesome\css\brands.css" />
+    <Content Include="Libraries\font-awesome\css\brands.min.css" />
+    <Content Include="Libraries\font-awesome\css\fontawesome.css" />
+    <Content Include="Libraries\font-awesome\css\fontawesome.min.css" />
+    <Content Include="Libraries\font-awesome\css\regular.css" />
+    <Content Include="Libraries\font-awesome\css\regular.min.css" />
+    <Content Include="Libraries\font-awesome\css\solid.css" />
+    <Content Include="Libraries\font-awesome\css\solid.min.css" />
+    <Content Include="Libraries\font-awesome\css\svg-with-js.css" />
+    <Content Include="Libraries\font-awesome\css\svg-with-js.min.css" />
+    <Content Include="Libraries\font-awesome\css\v4-shims.css" />
+    <Content Include="Libraries\font-awesome\css\v4-shims.min.css" />
+    <Content Include="Libraries\font-awesome\js\all.js" />
+    <Content Include="Libraries\font-awesome\js\all.min.js" />
+    <Content Include="Libraries\font-awesome\js\brands.js" />
+    <Content Include="Libraries\font-awesome\js\brands.min.js" />
+    <Content Include="Libraries\font-awesome\js\fontawesome.js" />
+    <Content Include="Libraries\font-awesome\js\fontawesome.min.js" />
+    <Content Include="Libraries\font-awesome\js\regular.js" />
+    <Content Include="Libraries\font-awesome\js\regular.min.js" />
+    <Content Include="Libraries\font-awesome\js\solid.js" />
+    <Content Include="Libraries\font-awesome\js\solid.min.js" />
+    <Content Include="Libraries\font-awesome\js\v4-shims.js" />
+    <Content Include="Libraries\font-awesome\js\v4-shims.min.js" />
+    <Content Include="Libraries\font-awesome\sprites\brands.svg" />
+    <Content Include="Libraries\font-awesome\sprites\regular.svg" />
+    <Content Include="Libraries\font-awesome\sprites\solid.svg" />
+    <Content Include="Libraries\font-awesome\webfonts\fa-brands-400.svg" />
+    <Content Include="Libraries\font-awesome\webfonts\fa-regular-400.svg" />
+    <Content Include="Libraries\font-awesome\webfonts\fa-solid-900.svg" />
     <Content Include="Libraries\jquery-validate\additional-methods.js" />
     <Content Include="Libraries\jquery-validate\additional-methods.min.js" />
     <Content Include="Libraries\jquery-validate\jquery.validate.js" />
@@ -394,12 +429,27 @@
     <Folder Include="Views\Settings\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Libraries\font-awesome\webfonts\fa-brands-400.eot" />
+    <Content Include="Libraries\font-awesome\webfonts\fa-brands-400.ttf" />
+    <Content Include="Libraries\font-awesome\webfonts\fa-brands-400.woff" />
+    <Content Include="Libraries\font-awesome\webfonts\fa-brands-400.woff2" />
+    <Content Include="Libraries\font-awesome\webfonts\fa-regular-400.eot" />
+    <Content Include="Libraries\font-awesome\webfonts\fa-regular-400.ttf" />
+    <Content Include="Libraries\font-awesome\webfonts\fa-regular-400.woff" />
+    <Content Include="Libraries\font-awesome\webfonts\fa-regular-400.woff2" />
+    <Content Include="Libraries\font-awesome\webfonts\fa-solid-900.eot" />
+    <Content Include="Libraries\font-awesome\webfonts\fa-solid-900.ttf" />
+    <Content Include="Libraries\font-awesome\webfonts\fa-solid-900.woff" />
+    <Content Include="Libraries\font-awesome\webfonts\fa-solid-900.woff2" />
     <None Include="packages.config" />
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Shared\Partials\_LoadingOverlay.cshtml" />
     <Content Include="Views\Shared\Partials\_Menus.cshtml" />
     <Content Include="Views\AccountManagement\Index.cshtml" />
     <Content Include="Views\AccountManagement\Create.cshtml" />
+    <Content Include="Views\AccountManagement\Edit.cshtml" />
+    <Content Include="Views\SubjectManagement\Index.cshtml" />
+    <Content Include="Views\SubjectManagement\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EnrollmentSystem.Common\EnrollmentSystem.Common.csproj">

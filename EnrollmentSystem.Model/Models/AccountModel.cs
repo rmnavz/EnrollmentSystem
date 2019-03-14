@@ -15,5 +15,6 @@ namespace EnrollmentSystem.Model
         public AccountTypeEnum AccountType { get; set; }
 
         public virtual AccountInformationModel AccountInformation { get; set; }
+        public virtual DepartmentModel Department { get; set; }
     }
 }

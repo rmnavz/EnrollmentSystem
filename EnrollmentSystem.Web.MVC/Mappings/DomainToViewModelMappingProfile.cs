@@ -9,6 +9,8 @@ namespace EnrollmentSystem.Web.MVC.Mappings
     {
         public DomainToViewModelMappingProfile()
         {
+            #region AccountModel
+
             CreateMap<AccountModel, AccountViewModel>()
                 .ForMember(g => g.ID, map => map.MapFrom(vm => vm.ID))
                 .ForMember(g => g.FirstName, map => map.MapFrom(vm => vm.AccountInformation.FirstName))
@@ -29,7 +31,25 @@ namespace EnrollmentSystem.Web.MVC.Mappings
                 .ForMember(g => g.LastName, map => map.MapFrom(vm => vm.AccountInformation.LastName))
                 .ForMember(g => g.EmailAddress, map => map.MapFrom(vm => vm.EmailAddress))
                 .ForMember(g => g.BirthDate, map => map.MapFrom(vm => vm.AccountInformation.BirthDate))
-                .ForMember(g => g.Gender, map => map.MapFrom(vm => vm.AccountInformation.Gender));
+                .ForMember(g => g.Gender, map => map.MapFrom(vm => vm.AccountInformation.Gender))
+                .ForMember(g => g.AccountType, map => map.MapFrom(vm => vm.AccountType));
+
+            #endregion
+
+            #region SubjectModel
+
+            CreateMap<SubjectModel, SubjectViewModel>()
+                .ForMember(g => g.Code, map => map.MapFrom(vm => vm.Code))
+                .ForMember(g => g.Title, map => map.MapFrom(vm => vm.Title))
+                .ForMember(g => g.Description, map => map.MapFrom(vm => vm.Description))
+                .ForMember(g => g.Unit, map => map.MapFrom(vm => vm.Unit))
+                .ForMember(g => g.Created, map => map.MapFrom(vm => vm.Created))
+                .ForMember(g => g.Modified, map => map.MapFrom(vm => vm.Modified))
+                .ForMember(g => g.Removed, map => map.MapFrom(vm => vm.Removed));
+
+            #endregion
+
+
         }
     }
 }
