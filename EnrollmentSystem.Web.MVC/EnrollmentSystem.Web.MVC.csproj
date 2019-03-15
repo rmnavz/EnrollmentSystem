@@ -196,6 +196,7 @@
     <Compile Include="ViewModels\CreateAccountFormViewModel.cs" />
     <Compile Include="ViewModels\CreateSubjectFormViewModel.cs" />
     <Compile Include="ViewModels\EditAccountFormViewModel.cs" />
+    <Compile Include="ViewModels\EditSubjectViewModel.cs" />
     <Compile Include="ViewModels\LoginFormViewModel.cs" />
     <Compile Include="ViewModels\RegisterFormViewModel.cs" />
     <Compile Include="ViewModels\SubjectViewModel.cs" />
@@ -206,6 +207,10 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Libraries\bootstrap-sweetalert\sweetalert.css" />
+    <Content Include="Libraries\bootstrap-sweetalert\sweetalert.js" />
+    <Content Include="Libraries\bootstrap-sweetalert\sweetalert.min.css" />
+    <Content Include="Libraries\bootstrap-sweetalert\sweetalert.min.js" />
     <Content Include="Libraries\font-awesome\css\all.css" />
     <Content Include="Libraries\font-awesome\css\all.min.css" />
     <Content Include="Libraries\font-awesome\css\brands.css" />
@@ -375,6 +380,18 @@
     <Content Include="Libraries\jquery\jquery.slim.min.js" />
     <Content Include="Libraries\modernizr\modernizr.js" />
     <Content Include="Libraries\modernizr\modernizr.min.js" />
+    <Content Include="Libraries\popper.js\esm\popper-utils.js" />
+    <Content Include="Libraries\popper.js\esm\popper-utils.min.js" />
+    <Content Include="Libraries\popper.js\esm\popper.js" />
+    <Content Include="Libraries\popper.js\esm\popper.min.js" />
+    <Content Include="Libraries\popper.js\popper-utils.js" />
+    <Content Include="Libraries\popper.js\popper-utils.min.js" />
+    <Content Include="Libraries\popper.js\popper.js" />
+    <Content Include="Libraries\popper.js\popper.min.js" />
+    <Content Include="Libraries\popper.js\umd\popper-utils.js" />
+    <Content Include="Libraries\popper.js\umd\popper-utils.min.js" />
+    <Content Include="Libraries\popper.js\umd\popper.js" />
+    <Content Include="Libraries\popper.js\umd\popper.min.js" />
     <Content Include="Libraries\twitter-bootstrap\css\bootstrap-grid.css" />
     <Content Include="Libraries\twitter-bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="Libraries\twitter-bootstrap\css\bootstrap-reboot.css" />
@@ -441,6 +458,19 @@
     <Content Include="Libraries\font-awesome\webfonts\fa-solid-900.ttf" />
     <Content Include="Libraries\font-awesome\webfonts\fa-solid-900.woff" />
     <Content Include="Libraries\font-awesome\webfonts\fa-solid-900.woff2" />
+    <Content Include="Libraries\popper.js\esm\popper-utils.js.map" />
+    <Content Include="Libraries\popper.js\esm\popper-utils.min.js.map" />
+    <Content Include="Libraries\popper.js\esm\popper.js.map" />
+    <Content Include="Libraries\popper.js\esm\popper.min.js.map" />
+    <Content Include="Libraries\popper.js\popper-utils.js.map" />
+    <Content Include="Libraries\popper.js\popper-utils.min.js.map" />
+    <Content Include="Libraries\popper.js\popper.js.map" />
+    <Content Include="Libraries\popper.js\popper.min.js.map" />
+    <Content Include="Libraries\popper.js\umd\popper-utils.js.map" />
+    <Content Include="Libraries\popper.js\umd\popper-utils.min.js.map" />
+    <Content Include="Libraries\popper.js\umd\popper.js.map" />
+    <Content Include="Libraries\popper.js\umd\popper.min.js.map" />
+    <Content Include="Libraries\bootstrap-sweetalert\sweetalert.min.css.map" />
     <None Include="packages.config" />
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Shared\Partials\_LoadingOverlay.cshtml" />
@@ -450,6 +480,7 @@
     <Content Include="Views\AccountManagement\Edit.cshtml" />
     <Content Include="Views\SubjectManagement\Index.cshtml" />
     <Content Include="Views\SubjectManagement\Create.cshtml" />
+    <Content Include="Views\Shared\Static\_FileNotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EnrollmentSystem.Common\EnrollmentSystem.Common.csproj">

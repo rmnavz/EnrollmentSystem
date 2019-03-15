@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EnrollmentSystem.Model;
 using EnrollmentSystem.Service;
+using EnrollmentSystem.Web.MVC.Common.PartialModels;
 using EnrollmentSystem.Web.MVC.ViewModels;
 using Microsoft.Owin.Security;
 using System.Collections.Generic;
@@ -59,5 +60,11 @@ namespace EnrollmentSystem.Web.MVC.Controllers
 
             base.OnActionExecuting(filterContext);
         }
+
+        protected ActionResult ModalMessage(string Title, string Message) => PartialView("Partials/_MessageModal", new MessageModal()
+        {
+            Title = Title,
+            Message = Message
+        });
     }
 }

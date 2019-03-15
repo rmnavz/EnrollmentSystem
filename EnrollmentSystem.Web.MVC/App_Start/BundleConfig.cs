@@ -21,7 +21,9 @@ namespace EnrollmentSystem.Web.MVC
                         "~/Libraries/modernizr/modernizr.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Libraries/twitter-bootstrap/js/bootstrap.js",
+                    "~/Libraries/popper.js/umd/popper.js",
+                    "~/Libraries/twitter-bootstrap/js/bootstrap.js",
+                      "~/Libraries/bootstrap-sweetalert/sweetalert.js",
                       "~/Libraries/font-awesome/js/fontawesome.js",
                       "~/Libraries/font-awesome/js/solid.js",
                       "~/Libraries/font-awesome/js/brands.js"));
@@ -34,6 +36,7 @@ namespace EnrollmentSystem.Web.MVC
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Libraries/twitter-bootstrap/css/bootstrap.css",
+                      "~/Libraries/bootstrap-sweetalert/sweetalert.css",
                       "~/Libraries/font-awesome/css/fontawesome.css",
                       "~/Libraries/font-awesome/css/solid.css",
                       "~/Libraries/font-awesome/css/brands.css",

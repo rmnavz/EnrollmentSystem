@@ -39,6 +39,7 @@ namespace EnrollmentSystem.Web.MVC.Mappings
             #region SubjectModel
 
             CreateMap<SubjectModel, SubjectViewModel>()
+                .ForMember(g => g.ID, map => map.MapFrom(vm => vm.ID))
                 .ForMember(g => g.Code, map => map.MapFrom(vm => vm.Code))
                 .ForMember(g => g.Title, map => map.MapFrom(vm => vm.Title))
                 .ForMember(g => g.Description, map => map.MapFrom(vm => vm.Description))

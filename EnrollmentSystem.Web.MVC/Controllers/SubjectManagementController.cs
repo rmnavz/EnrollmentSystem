@@ -37,27 +37,17 @@ namespace EnrollmentSystem.Web.MVC.Controllers
 
             if (_SubjectService.GetSubject(Subject.Code) != null) { return View("Index", Model); }
 
-            _SubjectService.CreateSubject(Subject);
-            _SubjectService.SaveSubject();
-
             try
             {
+                _SubjectService.CreateSubject(Subject);
+                _SubjectService.SaveSubject();
 
-
-                return PartialView("Partials/_MessageModal", new MessageModal()
-                {
-                    Title = "Dialog Message",
-                    Message = "Subject created successfully"
-                });
+                return ModalMessage("Dialog Message", "Subject created successfully");
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return PartialView("Partials/_MessageModal", new MessageModal()
-                {
-                    Title = "Dialog Message",
-                    Message = "Something went wrong"
-                });
+                return ModalMessage("Dialog Message", "Something went wrong");
             }
         }
     }

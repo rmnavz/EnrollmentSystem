@@ -17,7 +17,6 @@ namespace EnrollmentSystem.Web.MVC.Common.Helpers
             string InputStr = $"<input type=\"file\" id=\"{memberInfo.Name}\" name=\"{memberInfo.Name}\" class=\"form-control-input\">";
             return new MvcHtmlString(InputStr);
         }
-
     }
 
     public static class NavigationHtmlHelpers

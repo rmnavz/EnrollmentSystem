@@ -49,20 +49,11 @@ namespace EnrollmentSystem.Web.MVC.Controllers
                 _AccountService.UpdateAccount(Account);
                 _AccountService.SaveAccount();
 
-                return PartialView("Partials/_MessageModal", new MessageModal()
-                {
-                    Title = "Dialog Message",
-                    Message = "Account saved successfully"
-                });
+                return ModalMessage("Dialog Message", "Account saved successfully");
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex);
-                return PartialView("Partials/_MessageModal", new MessageModal()
-                {
-                    Title = "Dialog Message",
-                    Message = "Something went wrong"
-                });
+                return ModalMessage("Dialog Message", "Something went wrong");
             }
 
         }

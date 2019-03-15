@@ -37,27 +37,17 @@ namespace EnrollmentSystem.Web.MVC.Controllers
 
             if (_AccountService.GetAccount(Account.EmailAddress) != null) { return View("Index", Model); }
 
-            _AccountService.CreateAccount(Account);
-            _AccountService.SaveAccount();
-
             try
             {
-                
+                _AccountService.CreateAccount(Account);
+                _AccountService.SaveAccount();
 
-                return PartialView("Partials/_MessageModal", new MessageModal()
-                {
-                    Title = "Dialog Message",
-                    Message = "Account created successfully"
-                });
+                return ModalMessage("Dialog Message", "Account created successfully");
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex);
-                return PartialView("Partials/_MessageModal", new MessageModal()
-                {
-                    Title = "Dialog Message",
-                    Message = "Something went wrong"
-                });
+                return ModalMessage("Dialog Message", "Something went wrong");
             }
         }
 
@@ -80,20 +70,12 @@ namespace EnrollmentSystem.Web.MVC.Controllers
                 _AccountService.UpdateAccount(Account);
                 _AccountService.SaveAccount();
 
-                return PartialView("Partials/_MessageModal", new MessageModal()
-                {
-                    Title = "Dialog Message",
-                    Message = "Account saved successfully"
-                });
+                return ModalMessage("Dialog Message", "Account saved successfully");
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return PartialView("Partials/_MessageModal", new MessageModal()
-                {
-                    Title = "Dialog Message",
-                    Message = "Something went wrong"
-                });
+                return ModalMessage("Dialog Message", "Something went wrong");
             }
         }
 
@@ -104,20 +86,12 @@ namespace EnrollmentSystem.Web.MVC.Controllers
                 _AccountService.RemoveAccount(_AccountService.GetAccount(ID));
                 _AccountService.SaveAccount();
 
-                return PartialView("Partials/_MessageModal", new MessageModal()
-                {
-                    Title = "Dialog Message",
-                    Message = "Account removed successfully"
-                });
+                return ModalMessage("Dialog Message", "Account removed successfully");
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return PartialView("Partials/_MessageModal", new MessageModal()
-                {
-                    Title = "Dialog Message",
-                    Message = "Something went wrong"
-                });
+                return ModalMessage("Dialog Message", "Something went wrong");
             }
 
         }
