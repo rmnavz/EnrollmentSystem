@@ -4,8 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EnrollmentSystem.Web.MVC.ViewModels
 {
-    public class CreateSubjectFormViewModel
+    public class EditSubjectFormViewModel
     {
+        public int ID { get; set; }
         [Required]
         public string Code { get; set; }
         [Required]

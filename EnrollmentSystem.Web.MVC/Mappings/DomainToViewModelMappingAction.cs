@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
-using EnrollmentSystem.Common.Code.Conversion;
 using EnrollmentSystem.Model;
+using EnrollmentSystem.Service;
 using EnrollmentSystem.Web.MVC.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EnrollmentSystem.Web.MVC.Mappings
 {

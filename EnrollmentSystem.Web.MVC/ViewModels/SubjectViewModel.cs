@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EnrollmentSystem.Model;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace EnrollmentSystem.Web.MVC.ViewModels
@@ -10,6 +12,9 @@ namespace EnrollmentSystem.Web.MVC.ViewModels
         public string Title { get; set; }
         public string Description { get; set; }
         public int Unit { get; set; }
+        public bool Lecture { get; set; }
+        public bool Laboratory { get; set; }
+        public ICollection<SubjectModel> Prerequisites { get; set; }
         [DataType(DataType.Date)]
         public DateTime Created { get; set; }
         [DataType(DataType.Date)]

@@ -25,17 +25,40 @@ namespace EnrollmentSystem.Web.MVC.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            _DynamicModalOptions = new DynamicModalOptions
+            {
+                Title = "Create Subject",
+                FormMethod = FormMethod.Post,
+                FormType = FormType.Create
+            };
+            return ViewModal(
+                new CreateSubjectFormViewModel() {
+                    AllSubjects = _SubjectService.GetSubjects().Where(x => x.Removed == null).ToList(),
+                    PrerequisiteIDs = new List<int>() },
+                _DynamicModalOptions);
         }
 
         [HttpPost]
         public ActionResult Create(CreateSubjectFormViewModel Model)
         {
-            if (!ModelState.IsValid) { return View(Model); }
+            _DynamicModalOptions = new DynamicModalOptions
+            {
+                Title = "Create Subject",
+                FormMethod = FormMethod.Post,
+                FormType = FormType.Create
+            };
+
+            if (!ModelState.IsValid) { return ViewModal(Model, _DynamicModalOptions); }
 
             SubjectModel Subject = Mapper.Map<CreateSubjectFormViewModel, SubjectModel>(Model);
 
-            if (_SubjectService.GetSubject(Subject.Code) != null) { return View("Index", Model); }
+            Subject.Prerequisites = new List<SubjectModel>();
+            foreach(var PrerequisiteID in Model.PrerequisiteIDs)
+            {
+                Subject.Prerequisites.Add(_SubjectService.GetSubject(PrerequisiteID));
+            }
+
+            if (_SubjectService.GetSubject(Subject.Code) != null) { return ViewModal(Model, _DynamicModalOptions); }
 
             try
             {
@@ -49,6 +72,88 @@ namespace EnrollmentSystem.Web.MVC.Controllers
                 Console.WriteLine(ex);
                 return ModalMessage("Dialog Message", "Something went wrong");
             }
+        }
+
+        public ActionResult Edit(int ID)
+        {
+            _DynamicModalOptions = new DynamicModalOptions
+            {
+                Title = "Edit Subject",
+                FormMethod = FormMethod.Post,
+                FormType = FormType.Edit
+            };
+
+            SubjectModel Model = _SubjectService.GetSubject(ID);
+
+            EditSubjectFormViewModel ViewModel = Mapper.Map<SubjectModel, EditSubjectFormViewModel>(Model);
+            ViewModel.PrerequisiteIDs = new List<int>();
+            foreach(var Prereqisite in Model.Prerequisites)
+            {
+                ViewModel.PrerequisiteIDs.Add(Prereqisite.ID);
+            }
+            ViewModel.AllSubjects = _SubjectService.GetSubjects().Where(x => x.Removed == null && x.ID != ViewModel.ID).ToList();
+
+            return ViewModal( ViewModel, _DynamicModalOptions);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(EditSubjectFormViewModel Model)
+        {
+            _DynamicModalOptions = new DynamicModalOptions
+            {
+                Title = "Edit Subject",
+                FormMethod = FormMethod.Post,
+                FormType = FormType.Edit
+            };
+
+            if (!ModelState.IsValid) { return ViewModal(Model, _DynamicModalOptions); }
+
+            SubjectModel Subject = _SubjectService.GetSubject(Model.ID);
+            Mapper.Map(Model, Subject);
+
+            Subject.Prerequisites = new List<SubjectModel>();
+            foreach (var PrerequisiteID in Model.PrerequisiteIDs)
+            {
+                Subject.Prerequisites.Add(_SubjectService.GetSubject(PrerequisiteID));
+            }
+
+            try
+            {
+                _SubjectService.UpdateSubject(Subject);
+                _SubjectService.SaveSubject();
+
+                return ModalMessage("Dialog Message", "Subject saved successfully");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return ModalMessage("Dialog Message", "Something went wrong");
+            }
+        }
+
+        public ActionResult Remove(int ID)
+        {
+            try
+            {
+                _SubjectService.SoftRemoveSubject(_SubjectService.GetSubject(ID));
+                _SubjectService.SaveSubject();
+
+                return ModalMessage("Dialog Message", "Subject removed successfully");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return ModalMessage("Dialog Message", "Something went wrong");
+            }
+
+        }
+
+        public ActionResult Recover(int ID)
+        {
+            _SubjectService.RecoverSubject(_SubjectService.GetSubject(ID));
+            _SubjectService.SaveSubject();
+
+            return ModalMessage("Dialog Message", "Account Recovered");
         }
     }
 }

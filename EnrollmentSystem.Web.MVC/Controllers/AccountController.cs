@@ -31,14 +31,27 @@ namespace EnrollmentSystem.Web.MVC.Controllers
 
         public ActionResult Edit()
         {
+            _DynamicModalOptions = new DynamicModalOptions
+            {
+                Title = "Edit Account",
+                FormMethod = FormMethod.Post,
+                FormType = FormType.Edit
+            };
             AccountModel Account = _AccountService.GetAccount(GetUserID());
-            return View(Mapper.Map<AccountModel, EditAccountFormViewModel>(Account));
+            return ViewModal(Mapper.Map<AccountModel, EditAccountFormViewModel>(Account), _DynamicModalOptions);
         }
 
         [HttpPost]
         public ActionResult Edit(EditAccountFormViewModel Model)
         {
-            if (!ModelState.IsValid) { return View(Model); }
+            _DynamicModalOptions = new DynamicModalOptions
+            {
+                Title = "Edit Account",
+                FormMethod = FormMethod.Post,
+                FormType = FormType.Edit
+            };
+
+            if (!ModelState.IsValid) { return ViewModal(Model, _DynamicModalOptions); }
 
             AccountModel Account = _AccountService.GetAccount(GetUserID());
 

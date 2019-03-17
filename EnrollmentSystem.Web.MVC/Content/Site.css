@@ -2,3 +2,24 @@
     position: fixed;
     z-index: 100;
 }
+
+.remove-content-after::after {
+    content: none !important;
+}
+
+.field-validation-error {
+    color: #dc3545;
+    font-size: 0.7rem;
+}
+
+.fullscreen {
+    position: fixed;
+    z-index: 50;
+    height: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 1rem !important;
+    top: 0;
+    left: 0;
+    background: white;
+}

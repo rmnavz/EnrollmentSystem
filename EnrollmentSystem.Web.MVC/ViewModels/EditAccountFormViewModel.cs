@@ -9,6 +9,7 @@ namespace EnrollmentSystem.Web.MVC.ViewModels
 {
     public class EditAccountFormViewModel
     {
+        public int ID { get; set; }
         [Display(Name = "Profile Image")]
         public HttpPostedFileBase ProfileImage { get; set; }
         [Display(Name = "First Name")]

@@ -25,17 +25,30 @@ namespace EnrollmentSystem.Web.MVC.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            _DynamicModalOptions = new DynamicModalOptions
+            {
+                Title = "Create Account",
+                FormMethod = FormMethod.Post,
+                FormType = FormType.Create
+            };
+            return ViewModal(_DynamicModalOptions);
         }
 
         [HttpPost]
         public ActionResult Create(CreateAccountFormViewModel Model)
         {
-            if (!ModelState.IsValid) { return View(Model); }
+            _DynamicModalOptions = new DynamicModalOptions
+            {
+                Title = "Create Account",
+                FormMethod = FormMethod.Post,
+                FormType = FormType.Create
+            };
+
+            if (!ModelState.IsValid) { return ViewModal(Model, _DynamicModalOptions); }
 
             AccountModel Account = Mapper.Map<CreateAccountFormViewModel, AccountModel>(Model);
 
-            if (_AccountService.GetAccount(Account.EmailAddress) != null) { return View("Index", Model); }
+            if (_AccountService.GetAccount(Account.EmailAddress) != null) { return ViewModal(Model, _DynamicModalOptions); }
 
             try
             {
@@ -53,15 +66,28 @@ namespace EnrollmentSystem.Web.MVC.Controllers
 
         public ActionResult Edit(int ID)
         {
-            return View(Mapper.Map<AccountModel,EditAccountFormViewModel>(_AccountService.GetAccount(ID)));
+            _DynamicModalOptions = new DynamicModalOptions
+            {
+                Title = "Edit Account",
+                FormMethod = FormMethod.Post,
+                FormType = FormType.Edit
+            };
+            return ViewModal(Mapper.Map<AccountModel,EditAccountFormViewModel>(_AccountService.GetAccount(ID)), _DynamicModalOptions);
         }
 
         [HttpPost]
         public ActionResult Edit(EditAccountFormViewModel Model)
         {
-            if (!ModelState.IsValid) { return View(Model); }
+            _DynamicModalOptions = new DynamicModalOptions
+            {
+                Title = "Edit Account",
+                FormMethod = FormMethod.Post,
+                FormType = FormType.Edit
+            };
 
-            AccountModel Account = _AccountService.GetAccount(Model.EmailAddress);
+            if (!ModelState.IsValid) { return ViewModal(Model, _DynamicModalOptions); }
+
+            AccountModel Account = _AccountService.GetAccount(Model.ID);
 
             Mapper.Map(Model, Account);
 
@@ -83,7 +109,7 @@ namespace EnrollmentSystem.Web.MVC.Controllers
         {
             try
             {
-                _AccountService.RemoveAccount(_AccountService.GetAccount(ID));
+                _AccountService.SoftRemoveAccount(_AccountService.GetAccount(ID));
                 _AccountService.SaveAccount();
 
                 return ModalMessage("Dialog Message", "Account removed successfully");
@@ -101,7 +127,7 @@ namespace EnrollmentSystem.Web.MVC.Controllers
             _AccountService.RecoverAccount(_AccountService.GetAccount(ID));
             _AccountService.SaveAccount();
 
-            return RedirectToAction("Index", "AccountManagement");
+            return ModalMessage("Dialog Message", "Account Recovered");
         }
     }
 }

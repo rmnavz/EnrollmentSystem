@@ -48,6 +48,7 @@
     <Compile Include="Code\Security\PasswordHasher.cs" />
     <Compile Include="Enums\AccountTypeEnum.cs" />
     <Compile Include="Enums\GenderEnum.cs" />
+    <Compile Include="Enums\StatusEnum.cs" />
     <Compile Include="Helpers\ModelHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

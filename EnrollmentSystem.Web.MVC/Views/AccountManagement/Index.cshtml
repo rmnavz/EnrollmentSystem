@@ -1,25 +1,26 @@
 ﻿@model IEnumerable<AccountViewModel>
 
-<div class="row mb-2">
-    <div class="col">
+@section toolbar
+{
+    <div class="col-4">
         @Html.FontAwesomeActionLink("fas fa-plus", "New Account", "Create", "AccountManagement", null, new { @class = "btn btn-block btn-primary loadDynamicModal" })
     </div>
-</div>
-    @if (Model.Count() > 0)
-    {
+}
+@if (Model.Count() > 0)
+{
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th> BASIC INFO </th>
-                    <th> ACCOUNT TYPE </th>
-                    <th> CREATED DATE </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var Account in Model)
-                {
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th> BASIC INFO </th>
+                <th> ACCOUNT TYPE </th>
+                <th> CREATED DATE </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Account in Model)
+            {
                 <tr>
                     <td>
                         <div class="row">
@@ -58,9 +59,9 @@
                         <div class="row">
                             <div class="col-12">
 
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle fas fa-dot-circle" type="button" id="@("dropdown" + Account.ID)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                                    <div class="dropdown-menu" aria-labelledby="@("dropdown" + Account.ID)">
+                                <div class="dropdown dropright">
+                                    <button class="btn dropdown-toggle remove-content-after" type="button" id="@("dropdown_" + Account.ID)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></button>
+                                    <div class="dropdown-menu" aria-labelledby="@("dropdown_" + Account.ID)">
                                         @Html.ActionLink("Edit", "Edit", "AccountManagement", new { ID = Account.ID }, new { @class = "btn loadDynamicModal dropdown-item" })
                                         @Html.ActionLink("Remove", "Remove", "AccountManagement", new { ID = Account.ID }, new { @class = "btn loadDynamicModal dropdown-item" })
                                     </div>
@@ -69,52 +70,11 @@
                         </div>
                     </td>
                 </tr>
-                }
-            </tbody>
-        </table>
-
-        
-
-        @*foreach (var Account in Model)
-        {
-
-            <div class="row mb-2">
-                    <div class="col-12">
-                        <div class="card card-inverse">
-                            <div class="card-block">
-                                <div class="row mb-2">
-                                    <div class="col-md-10 col-sm-10">
-
-                                    </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-2 text-center">
-                                        @Html.FontAwesomeActionLink("fas fa-edit", "", "Edit", "AccountManagement", new { ID = Account.ID }, new { @class = "btn loadDynamicModal" })
-                                        @Html.FontAwesomeActionLink("fas fa-times", "", "Remove", "AccountManagement", new { ID = Account.ID }, new { @class = "btn loadDynamicModal" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-block">
-                                <div class="row mb-2">
-                                    <div class="col-md-8 col-sm-8">
-                                        <h2 class="card-title">Name: @Account.FirstName @Account.LastName</h2>
-                                        <h4 class="card-subtitle"><span class="badge bg-info">@Account.AccountType</span></h4>
-                                        <p class="card-text"><strong>Email: </strong> @Account.EmailAddress </p>
-                                        <p class="card-text"><strong>Birthdate: </strong> @Account.BirthDate </p>
-                                        <p class="card-text"><strong>Gender: </strong> @Account.Gender </p>
-                                    </div>
-                                    <div class="col-md-4 col-sm-4 text-center">
-                                        <img class="btn-md rounded-circle" src="@Account.ProfileImage" alt="@Account.EmailAddress" height="128" width="128">
-                                    </div>
-                                    <div class="col-md-4 col-sm-4 text-center">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        }*@
-    }
-    else
-    {
-        <h1 class="text-center">No Results</h1>
-    }
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    @Html.Partial("Partials/_NoResult")
+}

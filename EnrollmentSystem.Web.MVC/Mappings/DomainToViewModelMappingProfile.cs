@@ -27,6 +27,7 @@ namespace EnrollmentSystem.Web.MVC.Mappings
                 .AfterMap<AccountViewModelAction>();
 
             CreateMap<AccountModel, EditAccountFormViewModel>()
+                .ForMember(g => g.ID, map => map.MapFrom(vm => vm.AccountInformation.ID))
                 .ForMember(g => g.FirstName, map => map.MapFrom(vm => vm.AccountInformation.FirstName))
                 .ForMember(g => g.LastName, map => map.MapFrom(vm => vm.AccountInformation.LastName))
                 .ForMember(g => g.EmailAddress, map => map.MapFrom(vm => vm.EmailAddress))
@@ -44,9 +45,27 @@ namespace EnrollmentSystem.Web.MVC.Mappings
                 .ForMember(g => g.Title, map => map.MapFrom(vm => vm.Title))
                 .ForMember(g => g.Description, map => map.MapFrom(vm => vm.Description))
                 .ForMember(g => g.Unit, map => map.MapFrom(vm => vm.Unit))
+                .ForMember(g => g.Lecture, map => map.MapFrom(vm => vm.Lecture))
+                .ForMember(g => g.Laboratory, map => map.MapFrom(vm => vm.Laboratory))
                 .ForMember(g => g.Created, map => map.MapFrom(vm => vm.Created))
                 .ForMember(g => g.Modified, map => map.MapFrom(vm => vm.Modified))
                 .ForMember(g => g.Removed, map => map.MapFrom(vm => vm.Removed));
+
+            CreateMap<SubjectModel, CreateSubjectFormViewModel>()
+                .ForMember(g => g.Code, map => map.MapFrom(vm => vm.Code))
+                .ForMember(g => g.Title, map => map.MapFrom(vm => vm.Title))
+                .ForMember(g => g.Description, map => map.MapFrom(vm => vm.Description))
+                .ForMember(g => g.Unit, map => map.MapFrom(vm => vm.Unit))
+                .ForMember(g => g.Lecture, map => map.MapFrom(vm => vm.Lecture))
+                .ForMember(g => g.Laboratory, map => map.MapFrom(vm => vm.Laboratory));
+
+            CreateMap<SubjectModel, EditSubjectFormViewModel>()
+                .ForMember(g => g.Code, map => map.MapFrom(vm => vm.Code))
+                .ForMember(g => g.Title, map => map.MapFrom(vm => vm.Title))
+                .ForMember(g => g.Description, map => map.MapFrom(vm => vm.Description))
+                .ForMember(g => g.Unit, map => map.MapFrom(vm => vm.Unit))
+                .ForMember(g => g.Lecture, map => map.MapFrom(vm => vm.Lecture))
+                .ForMember(g => g.Laboratory, map => map.MapFrom(vm => vm.Laboratory));
 
             #endregion
 

@@ -33,6 +33,7 @@ namespace EnrollmentSystem.Web.MVC.Mappings
                     .AfterMap<AccountModelAction>();
 
             CreateMap<EditAccountFormViewModel, AccountModel>()
+                    .ForMember(g => g.ID, map => map.MapFrom(vm => vm.ID))
                     .ForPath(g => g.AccountInformation.FirstName, map => map.MapFrom(vm => vm.FirstName))
                     .ForPath(g => g.AccountInformation.LastName, map => map.MapFrom(vm => vm.LastName))
                     .ForMember(g => g.EmailAddress, map => map.MapFrom(vm => vm.EmailAddress))
@@ -56,7 +57,17 @@ namespace EnrollmentSystem.Web.MVC.Mappings
                     .ForMember(g => g.Code, map => map.MapFrom(vm => vm.Code))
                     .ForMember(g => g.Title, map => map.MapFrom(vm => vm.Title))
                     .ForMember(g => g.Description, map => map.MapFrom(vm => vm.Description))
-                    .ForMember(g => g.Unit, map => map.MapFrom(vm => vm.Unit));
+                    .ForMember(g => g.Unit, map => map.MapFrom(vm => vm.Unit))
+                    .ForMember(g => g.Lecture, map => map.MapFrom(vm => vm.Lecture))
+                    .ForMember(g => g.Laboratory, map => map.MapFrom(vm => vm.Laboratory));
+
+            CreateMap<EditSubjectFormViewModel, SubjectModel>()
+                    .ForMember(g => g.Code, map => map.MapFrom(vm => vm.Code))
+                    .ForMember(g => g.Title, map => map.MapFrom(vm => vm.Title))
+                    .ForMember(g => g.Description, map => map.MapFrom(vm => vm.Description))
+                    .ForMember(g => g.Unit, map => map.MapFrom(vm => vm.Unit))
+                    .ForMember(g => g.Lecture, map => map.MapFrom(vm => vm.Lecture))
+                    .ForMember(g => g.Laboratory, map => map.MapFrom(vm => vm.Laboratory));
 
             #endregion
         }

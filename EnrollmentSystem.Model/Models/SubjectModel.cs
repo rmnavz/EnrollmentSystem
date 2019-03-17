@@ -12,7 +12,12 @@ namespace EnrollmentSystem.Model
         public string Title { get; set; }
         public string Description { get; set; }
         public int Unit { get; set; }
+        public bool Lecture { get; set; }
+        public bool Laboratory { get; set; }
 
         public virtual DepartmentModel Department { get; set; }
+
+        public virtual ICollection<SubjectModel> Requisites { get; set; }
+        public virtual ICollection<SubjectModel> Prerequisites { get; set; }
     }
 }

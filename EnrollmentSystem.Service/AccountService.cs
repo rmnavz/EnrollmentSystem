@@ -18,6 +18,7 @@ namespace EnrollmentSystem.Service
         AccountModel GetAccount(string emailAddress);
         void CreateAccount(AccountModel account);
         void UpdateAccount(AccountModel account);
+        void SoftRemoveAccount(AccountModel account);
         void RemoveAccount(AccountModel account);
         void RecoverAccount(AccountModel account);
         void SaveAccount();
@@ -62,10 +63,15 @@ namespace EnrollmentSystem.Service
             accountRepository.Update(account);
         }
 
-        public void RemoveAccount(AccountModel account)
+        public void SoftRemoveAccount(AccountModel account)
         {
             account.Removed = DateTime.UtcNow;
             accountRepository.Update(account);
+        }
+
+        public void RemoveAccount(AccountModel account)
+        {
+            accountRepository.Delete(account);
         }
 
         public void RecoverAccount(AccountModel account)

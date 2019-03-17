@@ -13,9 +13,10 @@ using System.Web.Mvc;
 
 namespace EnrollmentSystem.Web.MVC.Controllers
 {
-    public class ControllerBase : Controller
+    public class ControllerBase : ControllerExtension
     {
         protected string _SearchQuery = null;
+        protected DynamicModalOptions _DynamicModalOptions = new DynamicModalOptions();
         protected IAccountService _AccountService;
         protected ISubjectService _SubjectService;
 
@@ -43,6 +44,21 @@ namespace EnrollmentSystem.Web.MVC.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            bool isFullscreen = (Session["isFullscreen"] != null) ? (bool)Session["isFullscreen"] : false;
+            Session["isFullscreen"] = isFullscreen;
+            if (isFullscreen)
+            {
+                ViewBag.toolbarClass = "fullscreen";
+                ViewBag.maximizeClass = "d-none";
+                ViewBag.minimizeClass = "";
+            }
+            else
+            {
+                ViewBag.toolbarClass = "";
+                ViewBag.maximizeClass = "";
+                ViewBag.minimizeClass = "d-none";
+            }
+
             _SearchQuery = HttpContext.Request.QueryString.Get("Search");
 
             var Model = filterContext.ActionParameters.SingleOrDefault(ap => ap.Key.ToLower() == "model").Value;
@@ -66,5 +82,11 @@ namespace EnrollmentSystem.Web.MVC.Controllers
             Title = Title,
             Message = Message
         });
+
+        public ActionResult ToggleFullscreen()
+        {
+            Session["isFullscreen"] = !(bool)Session["isFullscreen"];
+            return Json(new { success = true });
+        }
     }
 }

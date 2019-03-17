@@ -2,7 +2,9 @@
 using EnrollmentSystem.Common.Code.Conversion;
 using EnrollmentSystem.Common.Code.Security;
 using EnrollmentSystem.Model;
+using EnrollmentSystem.Service;
 using EnrollmentSystem.Web.MVC.ViewModels;
+using System.Collections.Generic;
 
 namespace EnrollmentSystem.Web.MVC.Mappings
 {

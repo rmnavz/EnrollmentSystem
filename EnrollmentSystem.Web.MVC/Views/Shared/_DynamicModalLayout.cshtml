@@ -1,0 +1,56 @@
+﻿
+@{ 
+    Html.EnableClientValidation(true);
+}
+
+@if ((bool)ViewBag.IsForm)
+{
+    using (Html.BeginForm((string)ViewBag.ActionName, (string)ViewBag.ControllerName, (FormMethod)ViewBag.FormMethod, new { enctype = "multipart/form-data" }))
+    {
+        <div class="modal-header">
+            <h5 class="modal-title">@ViewBag.Title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                @RenderBody()
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            @if ((FormType)ViewBag.FormType == FormType.Create)
+            {
+                <button type="submit" class="btn btn-primary">Create</button>
+            }
+            else if ((FormType)ViewBag.FormType == FormType.Add)
+            {
+                <button type="submit" class="btn btn-primary">Add</button>
+            }
+            else if ((FormType)ViewBag.FormType == FormType.Edit)
+            {
+                <button type="submit" class="btn btn-primary">Save</button>
+            }
+        </div>
+    }
+}
+else
+{
+    <div class="modal-header">
+        <h5 class="modal-title">ViewBag.Title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            @RenderBody()
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+}

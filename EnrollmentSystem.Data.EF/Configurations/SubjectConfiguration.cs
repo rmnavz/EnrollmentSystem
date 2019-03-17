@@ -14,6 +14,9 @@ namespace EnrollmentSystem.Data.EF.Configurations
 
             HasOptional(x => x.Department)
                 .WithMany(x => x.Subjects);
+
+            HasMany(x => x.Prerequisites)
+                .WithMany(x => x.Requisites);
         }
     }
 }

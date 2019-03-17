@@ -13,8 +13,10 @@ namespace EnrollmentSystem.Service
         SubjectModel GetSubject(int id);
         SubjectModel GetSubject(string code);
         IEnumerable<SubjectModel> GetSubjects(string keyword);
+        IEnumerable<SubjectModel> GetPrerequisites(int id);
         void CreateSubject(SubjectModel subject);
         void UpdateSubject(SubjectModel subject);
+        void SoftRemoveSubject(SubjectModel subject);
         void RemoveSubject(SubjectModel subject);
         void RecoverSubject(SubjectModel subject);
         void SaveSubject();
@@ -67,14 +69,26 @@ namespace EnrollmentSystem.Service
             }
         }
 
+        public IEnumerable<SubjectModel> GetPrerequisites(int id)
+        {
+            return subjectRepository.GetPrerequisitesBySubjectID(id);
+        }
+
         public void RecoverSubject(SubjectModel subject)
         {
-            throw new NotImplementedException();
+            subject.Removed = null;
+            subjectRepository.Update(subject);
         }
 
         public void RemoveSubject(SubjectModel subject)
         {
-            throw new NotImplementedException();
+            subjectRepository.Delete(subject);
+        }
+
+        public void SoftRemoveSubject(SubjectModel subject)
+        {
+            subject.Removed = DateTime.UtcNow;
+            subjectRepository.Update(subject);
         }
 
         public void SaveSubject()

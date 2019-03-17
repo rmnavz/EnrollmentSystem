@@ -60,10 +60,17 @@
                 </ul>
             </nav>
 
-            <div class="container mt-3" style="height: 80vh;overflow-y: auto;">
-                @RenderBody()
+                <div id="contentPage" class="container-fluid mt-3 @ViewBag.toolbarClass" style="height: 80vh;">
+                    <div class="row mb-2 d-flex flex-row-reverse">
+                        <div class="col-1">
+                            <button class="btn maximize @ViewBag.maximizeClass" onclick="fullscreen()"><i class="fas fa-expand"></i></button>
+                            <button class=" btn minimize @ViewBag.minimizeClass" onclick="fullscreen()"><i class="fas fa-compress"></i></button>
+                        </div>
+                        @RenderSection("toolbar", required: false)
+                    </div>
+                    @RenderBody()
+                </div>
             </div>
-        </div>
         <!-- /#page-content-wrapper -->
     </div>
 
@@ -90,6 +97,14 @@
                 return false;
             }
         });
+
+        function fullscreen() {
+            $("#contentPage").toggleClass("fullscreen");
+            $(".maximize").toggleClass("d-none");
+            $(".minimize").toggleClass("d-none");
+
+            $.post("/Home/ToggleFullscreen");
+        }
     </script>
 </body>
 </html>
