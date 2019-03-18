@@ -1,8 +1,7 @@
-﻿using AutoMapper;
-using EnrollmentSystem.Model;
+﻿using EnrollmentSystem.Model;
 using EnrollmentSystem.Service;
+using EnrollmentSystem.ViewModels;
 using EnrollmentSystem.Web.MVC.Common.Filters;
-using EnrollmentSystem.Web.MVC.ViewModels;
 using Microsoft.AspNet.Identity;
 using System.Security.Claims;
 using System.Web.Mvc;

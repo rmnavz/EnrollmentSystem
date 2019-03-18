@@ -8,71 +8,81 @@
 }
 @if (Model.Count() > 0)
 {
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive-md">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th> BASIC INFO </th>
+                            <th> ACCOUNT TYPE </th>
+                            <th> CREATED DATE </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Account in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img class="btn-md rounded-circle" src="@Account.ProfileImage" alt="@Account.EmailAddress" height="32" width="32">
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <span>@Account.FirstName @Account.LastName</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <small>@Account.EmailAddress</small>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    @if(Account.Department != null) { <span class="badge badge-info">@Account.Department.Title</span> }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            @Account.AccountType
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            @Account.Created.ToCustomDateString("MMMM d, yyyy hh:mm tt")
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-12">
 
-    <table class="table table-responsive">
-        <thead>
-            <tr>
-                <th> BASIC INFO </th>
-                <th> ACCOUNT TYPE </th>
-                <th> CREATED DATE </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var Account in Model)
-            {
-                <tr>
-                    <td>
-                        <div class="row">
-                            <div class="col-4">
-                                <img class="btn-md rounded-circle" src="@Account.ProfileImage" alt="@Account.EmailAddress" height="32" width="32">
-                            </div>
-                            <div class="col-8">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <span>@Account.FirstName @Account.LastName</span>
+                                            <div class="dropdown dropright">
+                                                <button class="btn dropdown-toggle remove-content-after" type="button" id="@("dropdown_" + Account.ID)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></button>
+                                                <div class="dropdown-menu" aria-labelledby="@("dropdown_" + Account.ID)">
+                                                    @Html.ActionLink("Edit", "Edit", "AccountManagement", new { ID = Account.ID }, new { @class = "btn loadDynamicModal dropdown-item" })
+                                                    @Html.ActionLink("Remove", "Remove", "AccountManagement", new { ID = Account.ID }, new { @class = "btn loadDynamicModal dropdown-item" })
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <small>@Account.EmailAddress</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-12">
-                                @Account.AccountType
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-12">
-                                @Account.Created.ToUniversalTime()
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-12">
-
-                                <div class="dropdown dropright">
-                                    <button class="btn dropdown-toggle remove-content-after" type="button" id="@("dropdown_" + Account.ID)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></button>
-                                    <div class="dropdown-menu" aria-labelledby="@("dropdown_" + Account.ID)">
-                                        @Html.ActionLink("Edit", "Edit", "AccountManagement", new { ID = Account.ID }, new { @class = "btn loadDynamicModal dropdown-item" })
-                                        @Html.ActionLink("Remove", "Remove", "AccountManagement", new { ID = Account.ID }, new { @class = "btn loadDynamicModal dropdown-item" })
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 }
 else
 {

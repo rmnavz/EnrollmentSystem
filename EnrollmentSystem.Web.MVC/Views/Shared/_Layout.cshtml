@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - @ViewBag.ApplicationName</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/css/sidebar")
+    @Styles.Render("~/Content/css/datatables")
     @RenderSection("styles", required: false)
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -28,7 +29,7 @@
 
             <nav class="navbar navbar-expand navbar-light bg-light border-bottom">
                 <button class="btn btn-primary" id="menu-toggle"><i class="fas fa-bars"></i></button>
-                @using (Html.BeginForm("Index", (string)ViewBag.CurrentController, FormMethod.Get, new { @id = "g_searchboxForm", @class = "form-inline w-100" }))
+                @*@using (Html.BeginForm("Index", (string)ViewBag.CurrentController, FormMethod.Get, new { @id = "g_searchboxForm", @class = "form-inline w-100" }))
                 {
                     <div class="input-group mx-2 w-100">
                         <input id="g_searchbox" name="Search" class="form-control" value="@ViewBag.SearchValue" />
@@ -36,7 +37,7 @@
                             <button class="btn input-group-text" type="submit">Search</button>
                         </div>
                     </div>
-                }
+                }*@
 
                 <ul class="navbar-nav ml-auto mt-0">
                     @if (User.Identity.IsAuthenticated)
@@ -78,12 +79,17 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/PageTransition")
+    @Scripts.Render("~/bundles/datatables")
     @RenderSection("scripts", required: false)
 
     @Html.Partial("Partials/_DynamicModal")
 
     <!-- Menu Toggle Script -->
     <script>
+        $(document).ready(function () {
+            $(".table").DataTable();
+        });
+
         $("#menu-toggle").click(function (e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");

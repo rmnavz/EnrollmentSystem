@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
-using EnrollmentSystem.Common.Helpers;
+using EnrollmentSystem.Mapping.Mappings;
 using EnrollmentSystem.Model;
 using EnrollmentSystem.Service;
-using EnrollmentSystem.Web.MVC.Common.PartialModels;
-using EnrollmentSystem.Web.MVC.ViewModels;
+using EnrollmentSystem.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace EnrollmentSystem.Web.MVC.Controllers
@@ -21,7 +18,7 @@ namespace EnrollmentSystem.Web.MVC.Controllers
             _AccountService = AccountService;
         }
         // GET: AccountManagement
-        public ActionResult Index() => View(Mapper.Map<IEnumerable<AccountModel>, IEnumerable<AccountViewModel>>(_AccountService.GetAccounts(_SearchQuery).Where(x => x.Removed == null).ToList()));
+        public ActionResult Index() => View(_AccountService.GetAccounts(_SearchQuery).Where(x => x.Removed == null).ToList().ToAccountViewModel());
 
         public ActionResult Create()
         {
@@ -46,7 +43,7 @@ namespace EnrollmentSystem.Web.MVC.Controllers
 
             if (!ModelState.IsValid) { return ViewModal(Model, _DynamicModalOptions); }
 
-            AccountModel Account = Mapper.Map<CreateAccountFormViewModel, AccountModel>(Model);
+            AccountModel Account = Model.ToAccountModel();
 
             if (_AccountService.GetAccount(Account.EmailAddress) != null) { return ViewModal(Model, _DynamicModalOptions); }
 
@@ -72,7 +69,7 @@ namespace EnrollmentSystem.Web.MVC.Controllers
                 FormMethod = FormMethod.Post,
                 FormType = FormType.Edit
             };
-            return ViewModal(Mapper.Map<AccountModel,EditAccountFormViewModel>(_AccountService.GetAccount(ID)), _DynamicModalOptions);
+            return ViewModal(_AccountService.GetAccount(ID).ToEditAccountFormViewModel(), _DynamicModalOptions);
         }
 
         [HttpPost]
@@ -87,9 +84,7 @@ namespace EnrollmentSystem.Web.MVC.Controllers
 
             if (!ModelState.IsValid) { return ViewModal(Model, _DynamicModalOptions); }
 
-            AccountModel Account = _AccountService.GetAccount(Model.ID);
-
-            Mapper.Map(Model, Account);
+            AccountModel Account = Model.ToAccountModel(_AccountService.GetAccount(Model.ID));
 
             try
             {

@@ -31,12 +31,30 @@ namespace EnrollmentSystem.Data.EF.Repositories
             return DbContext.Accounts.Where(x => x.EmailAddress == EmailAddress).Count() > 0 ? true : false;
         }
 
+        public override IEnumerable<AccountModel> GetAll()
+        {
+            return this.DbContext.Accounts
+                .Include(x => x.AccountInformation)
+                .Include(x => x.Department)
+                .ToList();
+        }
+
         public override IEnumerable<AccountModel> GetMany(Expression<Func<AccountModel, bool>> where)
         {
             return this.DbContext.Accounts
                 .Include(x => x.AccountInformation)
+                .Include(x => x.Department)
                 .Where(where)
                 .ToList();
+        }
+
+        public override AccountModel GetById(int id)
+        {
+            return this.DbContext.Accounts
+                .Include(x => x.AccountInformation)
+                .Include(x => x.Department)
+                .Where(x => x.ID == id)
+                .FirstOrDefault();
         }
     }
 

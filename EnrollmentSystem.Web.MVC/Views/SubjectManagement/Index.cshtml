@@ -9,101 +9,99 @@
 
     @if (Model.Count() > 0)
     {
-        <table class="table table-responsive">
-            <thead>
-                <tr>
-                    <th> Code </th>
-                    <th> Title </th>
-                    <th> Description </th>
-                    <th> Unit </th>
-                    <th> Lecture </th>
-                    <th> Laboratory </th>
-                    <th> Prerequisites </th>
-                    <th> Created </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var Subject in Model)
-                {
-                <tr>
-                    <td>
-                        <div class="row">
-                            <div class="col-12">
-                                @Subject.Code
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-12">
-                                @Subject.Title
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-12">
-                                @Subject.Description
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-12">
-                                @Subject.Unit
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-12">
-                                @Subject.Lecture
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-12">
-                                @Subject.Laboratory
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        @foreach (var Prerequisite in Subject.Prerequisites)
-                        {
-                            <div class="row">
-                                <div class="col-12">
-                                    @Prerequisite.Code
-                                </div>
-                            </div>
-                        }
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-12">
-                                @Subject.Created.ToUniversalTime()
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-12">
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive-md">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> Code </th>
+                                <th> Title </th>
+                                <th> Description </th>
+                                <th> Unit </th>
+                                <th> Prerequisites </th>
+                                <th> Created </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var Subject in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                @Subject.Code
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                @if (Subject.Lecture)
+                                                {<span class="badge badge-info">Lecture</span>}
+                                                @if (Subject.Laboratory)
+                                                {<span class="badge badge-info">Laboratory</span>}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                @Subject.Title
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                @Subject.Description
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                @Subject.Unit
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @foreach (var Prerequisite in Subject.Prerequisites)
+                                        {
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    @Prerequisite.Code
+                                                </div>
+                                            </div>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                @Subject.Created.ToCustomDateString("MMMM d, yyyy hh:mm tt")
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-12">
 
-                                <div class="dropdown dropright">
-                                    <button class="btn dropdown-toggle remove-content-after" type="button" id="@("dropdown_" + Subject.ID)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></button>
-                                    <div class="dropdown-menu" aria-labelledby="@("dropdown_" + Subject.ID)">
-                                        @Html.ActionLink("Edit", "Edit", "SubjectManagement", new { ID = Subject.ID }, new { @class = "btn loadDynamicModal dropdown-item" })
-                                        @Html.ActionLink("Remove", "Remove", "SubjectManagement", new { ID = Subject.ID }, new { @class = "btn loadDynamicModal dropdown-item" })
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                }
-            </tbody>
-        </table>
+                                                <div class="dropdown dropright">
+                                                    <button class="btn dropdown-toggle remove-content-after" type="button" id="@("dropdown_" + Subject.ID)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></button>
+                                                    <div class="dropdown-menu" aria-labelledby="@("dropdown_" + Subject.ID)">
+                                                        @Html.ActionLink("Edit", "Edit", "SubjectManagement", new { ID = Subject.ID }, new { @class = "btn loadDynamicModal dropdown-item" })
+                                                        @Html.ActionLink("Remove", "Remove", "SubjectManagement", new { ID = Subject.ID }, new { @class = "btn loadDynamicModal dropdown-item" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     }
     else
     {

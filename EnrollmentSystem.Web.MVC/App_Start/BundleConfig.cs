@@ -28,6 +28,10 @@ namespace EnrollmentSystem.Web.MVC
                       "~/Libraries/font-awesome/js/solid.js",
                       "~/Libraries/font-awesome/js/brands.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
+                      "~/Libraries/datatables/js/jquery.dataTables.js",
+                      "~/Libraries/datatables/js/dataTables.bootstrap4.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/dynamicModal").Include(
                       "~/Scripts/DynamicModal.js"));
 
@@ -41,6 +45,10 @@ namespace EnrollmentSystem.Web.MVC
                       "~/Libraries/font-awesome/css/solid.css",
                       "~/Libraries/font-awesome/css/brands.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/css/datatables").Include(
+                      "~/Libraries/datatables/css/jquery.dataTables.css",
+                      "~/Libraries/datatables/css/dataTables.bootstrap4.css"));
 
             bundles.Add(new StyleBundle("~/Content/css/sidebar").Include(
                       "~/Content/sidebar.css"));

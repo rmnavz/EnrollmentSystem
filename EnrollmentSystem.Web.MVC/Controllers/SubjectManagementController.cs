@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using EnrollmentSystem.Mapping.Mappings;
 using EnrollmentSystem.Model;
 using EnrollmentSystem.Service;
-using EnrollmentSystem.Web.MVC.Common.PartialModels;
-using EnrollmentSystem.Web.MVC.ViewModels;
+using EnrollmentSystem.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace EnrollmentSystem.Web.MVC.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class SubjectManagementController : ControllerBase
     {
         public SubjectManagementController(ISubjectService SubjectService)
@@ -20,7 +21,9 @@ namespace EnrollmentSystem.Web.MVC.Controllers
         // GET: SubjectManagement
         public ActionResult Index()
         {
-            return View(Mapper.Map<IEnumerable<SubjectModel>,IEnumerable<SubjectViewModel>>(_SubjectService.GetSubjects(_SearchQuery).Where(x => x.Removed == null).ToList()));
+            return View(
+                    _SubjectService.GetSubjects(_SearchQuery).Where(x => x.Removed == null).ToList().ToSubjectViewModel()
+                );
         }
 
         public ActionResult Create()
@@ -32,10 +35,9 @@ namespace EnrollmentSystem.Web.MVC.Controllers
                 FormType = FormType.Create
             };
             return ViewModal(
-                new CreateSubjectFormViewModel() {
-                    AllSubjects = _SubjectService.GetSubjects().Where(x => x.Removed == null).ToList(),
-                    PrerequisiteIDs = new List<int>() },
-                _DynamicModalOptions);
+                    new SubjectModel().ToCreateSubjectFormViewModel(_SubjectService.GetSubjects().Where(x => x.Removed == null).ToList()), 
+                    _DynamicModalOptions
+                );
         }
 
         [HttpPost]
@@ -50,13 +52,7 @@ namespace EnrollmentSystem.Web.MVC.Controllers
 
             if (!ModelState.IsValid) { return ViewModal(Model, _DynamicModalOptions); }
 
-            SubjectModel Subject = Mapper.Map<CreateSubjectFormViewModel, SubjectModel>(Model);
-
-            Subject.Prerequisites = new List<SubjectModel>();
-            foreach(var PrerequisiteID in Model.PrerequisiteIDs)
-            {
-                Subject.Prerequisites.Add(_SubjectService.GetSubject(PrerequisiteID));
-            }
+            SubjectModel Subject = Model.ToSubjectModel(_SubjectService.GetSubjects().Where(x => x.Removed == null).ToList());
 
             if (_SubjectService.GetSubject(Subject.Code) != null) { return ViewModal(Model, _DynamicModalOptions); }
 
@@ -83,17 +79,10 @@ namespace EnrollmentSystem.Web.MVC.Controllers
                 FormType = FormType.Edit
             };
 
-            SubjectModel Model = _SubjectService.GetSubject(ID);
-
-            EditSubjectFormViewModel ViewModel = Mapper.Map<SubjectModel, EditSubjectFormViewModel>(Model);
-            ViewModel.PrerequisiteIDs = new List<int>();
-            foreach(var Prereqisite in Model.Prerequisites)
-            {
-                ViewModel.PrerequisiteIDs.Add(Prereqisite.ID);
-            }
-            ViewModel.AllSubjects = _SubjectService.GetSubjects().Where(x => x.Removed == null && x.ID != ViewModel.ID).ToList();
-
-            return ViewModal( ViewModel, _DynamicModalOptions);
+            return ViewModal(
+                    _SubjectService.GetSubject(ID).ToEditSubjectFormViewModel(_SubjectService.GetSubjects().Where(x => x.Removed == null).ToList()),
+                    _DynamicModalOptions
+                );
         }
 
         [HttpPost]
@@ -108,14 +97,7 @@ namespace EnrollmentSystem.Web.MVC.Controllers
 
             if (!ModelState.IsValid) { return ViewModal(Model, _DynamicModalOptions); }
 
-            SubjectModel Subject = _SubjectService.GetSubject(Model.ID);
-            Mapper.Map(Model, Subject);
-
-            Subject.Prerequisites = new List<SubjectModel>();
-            foreach (var PrerequisiteID in Model.PrerequisiteIDs)
-            {
-                Subject.Prerequisites.Add(_SubjectService.GetSubject(PrerequisiteID));
-            }
+            SubjectModel Subject = Model.ToSubjectModel(_SubjectService.GetSubjects().Where(x => x.Removed == null).ToList(), _SubjectService.GetSubject(Model.ID));
 
             try
             {
@@ -153,7 +135,7 @@ namespace EnrollmentSystem.Web.MVC.Controllers
             _SubjectService.RecoverSubject(_SubjectService.GetSubject(ID));
             _SubjectService.SaveSubject();
 
-            return ModalMessage("Dialog Message", "Account Recovered");
+            return ModalMessage("Dialog Message", "Subject Recovered");
         }
     }
 }

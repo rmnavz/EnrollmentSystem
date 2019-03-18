@@ -91,6 +91,18 @@
                                         </div>
                                     </div>
 
+                                    @if (Model.Department != null)
+                                    {
+                                        <div class="row">
+                                            <div class="col">
+                                                @Html.DisplayNameFor(x => x.Department)
+                                            </div>
+                                            <div class="col">
+                                                @Html.DisplayTextFor(x => x.Department.Title)
+                                            </div>
+                                        </div>
+                                    }
+
                                 </div>
                             </div>
                         </div>

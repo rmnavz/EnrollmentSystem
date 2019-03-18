@@ -1,0 +1,31 @@
+﻿@model CreateDepartmentFormViewModel
+
+<div class="row mb-2">
+    <div class="col-6">
+        @Html.DisplayNameFor(x => x.Code)
+    </div>
+    <div class="col-6">
+        @Html.EditorFor(x => x.Code, "", new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Code)
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-6">
+        @Html.DisplayNameFor(x => x.Title)
+    </div>
+    <div class="col-6">
+        @Html.EditorFor(x => x.Title, "", new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Title)
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-6">
+        @Html.DisplayNameFor(x => x.Description)
+    </div>
+    <div class="col-6">
+        @Html.EditorFor(x => x.Description, "", new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(x => x.Description)
+    </div>
+</div>

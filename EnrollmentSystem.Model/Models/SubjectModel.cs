@@ -8,6 +8,12 @@ namespace EnrollmentSystem.Model
 {
     public class SubjectModel : ModelBase
     {
+        public SubjectModel()
+        {
+            this.Requisites = new List<SubjectModel>();
+            this.Prerequisites = new List<SubjectModel>();
+        }
+
         public string Code { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

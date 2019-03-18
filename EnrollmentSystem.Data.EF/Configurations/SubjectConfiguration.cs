@@ -16,7 +16,13 @@ namespace EnrollmentSystem.Data.EF.Configurations
                 .WithMany(x => x.Subjects);
 
             HasMany(x => x.Prerequisites)
-                .WithMany(x => x.Requisites);
+                .WithMany(x => x.Requisites)
+                .Map(cs =>
+                {
+                    cs.MapLeftKey("Prerequisites");
+                    cs.MapRightKey("Requisites");
+                    cs.ToTable("SubjectPrerequisites");
+                }); ;
         }
     }
 }

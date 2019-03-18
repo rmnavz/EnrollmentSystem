@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
 using EnrollmentSystem.Common.Code.Security;
 using EnrollmentSystem.Common.Enums;
+using EnrollmentSystem.Mapping.Mappings;
 using EnrollmentSystem.Model;
 using EnrollmentSystem.Service;
+using EnrollmentSystem.ViewModels;
 using EnrollmentSystem.Web.MVC.Common.Filters;
-using EnrollmentSystem.Web.MVC.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace EnrollmentSystem.Web.MVC.Controllers
@@ -30,7 +27,7 @@ namespace EnrollmentSystem.Web.MVC.Controllers
         {
             if (!ModelState.IsValid) { return View("Index", Model); }
 
-            AccountModel Account = Mapper.Map<RegisterFormViewModel, AccountModel>(Model);
+            AccountModel Account = Model.ToAccountModel();
 
             if (PasswordHasher.VerifyPassword(Model.Password, Account.Salt, Account.Password))
             {
@@ -44,8 +41,5 @@ namespace EnrollmentSystem.Web.MVC.Controllers
 
             return View("Index", Model);
         }
-
-        [HttpPost]
-        public JsonResult CheckExistingEmail(string EmailAddress) => Json(!IsEmailExist(EmailAddress), JsonRequestBehavior.AllowGet);
     }
 }

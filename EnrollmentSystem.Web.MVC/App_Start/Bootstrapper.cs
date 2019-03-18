@@ -2,13 +2,10 @@
 using Autofac.Integration.Mvc;
 using EnrollmentSystem.Data.EF.Infrastructure;
 using EnrollmentSystem.Data.EF.Repositories;
+using EnrollmentSystem.Mapping;
 using EnrollmentSystem.Service;
-using EnrollmentSystem.Web.MVC.Mappings;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
 
 namespace EnrollmentSystem.Web.MVC.App_Start

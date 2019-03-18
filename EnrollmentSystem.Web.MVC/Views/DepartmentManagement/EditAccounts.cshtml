@@ -1,0 +1,50 @@
+﻿@model EditDepartmentAccountFormViewModel
+
+<div class="row mb-2">
+    <div class="col-6">
+        @Html.DisplayNameFor(x => x.Code)
+    </div>
+    <div class="col-6">
+        @Html.DisplayTextFor(x => x.Code)
+        @Html.HiddenFor(x => x.Code)
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-6">
+        @Html.DisplayNameFor(x => x.Title)
+    </div>
+    <div class="col-6">
+        @Html.DisplayTextFor(x => x.Title)
+        @Html.HiddenFor(x => x.Title)
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-6">
+        @Html.DisplayNameFor(x => x.Description)
+    </div>
+    <div class="col-6">
+        @Html.DisplayTextFor(x => x.Description)
+        @Html.HiddenFor(x => x.Description)
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-6">
+        @Html.DisplayNameFor(x => x.Accounts)
+    </div>
+    <div class="col-6">
+        @foreach (var Account in Model.Accounts)
+        {
+            <div class="row">
+                <div class="col-12">
+                    <input type="checkbox"
+                           name="SelectedIDs" value="@Account.ID" id="@Account.ID"
+                           @{if (Model.SelectedIDs.Contains(Account.ID)) { <text> checked='checked' </text>  } } />
+                    <label for="@Account.ID">@Account.AccountInformation.FirstName @Account.AccountInformation.LastName</label>
+                </div>
+            </div>
+        }
+    </div>
+</div>

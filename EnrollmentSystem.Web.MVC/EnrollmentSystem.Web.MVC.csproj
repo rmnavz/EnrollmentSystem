@@ -85,6 +85,12 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.4.1\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Primitives, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Primitives.4.3.0\lib\net45\System.ComponentModel.Primitives.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
@@ -177,32 +183,17 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountManagementController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
+    <Compile Include="Controllers\DepartmentManagementController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
-    <Compile Include="Controllers\PrerequisiteController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
-    <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\SubjectManagementController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Mappings\AutoMapperConfiguration.cs" />
-    <Compile Include="Mappings\DomainToViewModelMappingAction.cs" />
-    <Compile Include="Mappings\DomainToViewModelMappingProfile.cs" />
-    <Compile Include="Mappings\ViewModelToDomainMappingAction.cs" />
-    <Compile Include="Mappings\ViewModelToDomainMappingProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\AccountViewModel.cs" />
-    <Compile Include="ViewModels\AddPrerequisiteFormViewModel.cs" />
-    <Compile Include="ViewModels\CreateAccountFormViewModel.cs" />
-    <Compile Include="ViewModels\CreateSubjectFormViewModel.cs" />
-    <Compile Include="ViewModels\EditAccountFormViewModel.cs" />
-    <Compile Include="ViewModels\EditSubjectFormViewModel.cs" />
-    <Compile Include="ViewModels\LoginFormViewModel.cs" />
-    <Compile Include="ViewModels\RegisterFormViewModel.cs" />
-    <Compile Include="ViewModels\SubjectViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Sidebar.css" />
@@ -214,6 +205,46 @@
     <Content Include="Libraries\bootstrap-sweetalert\sweetalert.js" />
     <Content Include="Libraries\bootstrap-sweetalert\sweetalert.min.css" />
     <Content Include="Libraries\bootstrap-sweetalert\sweetalert.min.js" />
+    <Content Include="Libraries\datatables\css\dataTables.bootstrap.css" />
+    <Content Include="Libraries\datatables\css\dataTables.bootstrap.min.css" />
+    <Content Include="Libraries\datatables\css\dataTables.bootstrap4.css" />
+    <Content Include="Libraries\datatables\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Libraries\datatables\css\dataTables.foundation.css" />
+    <Content Include="Libraries\datatables\css\dataTables.foundation.min.css" />
+    <Content Include="Libraries\datatables\css\dataTables.jqueryui.css" />
+    <Content Include="Libraries\datatables\css\dataTables.jqueryui.min.css" />
+    <Content Include="Libraries\datatables\css\dataTables.material.css" />
+    <Content Include="Libraries\datatables\css\dataTables.material.min.css" />
+    <Content Include="Libraries\datatables\css\dataTables.semanticui.css" />
+    <Content Include="Libraries\datatables\css\dataTables.semanticui.min.css" />
+    <Content Include="Libraries\datatables\css\dataTables.uikit.css" />
+    <Content Include="Libraries\datatables\css\dataTables.uikit.min.css" />
+    <Content Include="Libraries\datatables\css\jquery.dataTables.css" />
+    <Content Include="Libraries\datatables\css\jquery.dataTables.min.css" />
+    <Content Include="Libraries\datatables\css\jquery.dataTables_themeroller.css" />
+    <Content Include="Libraries\datatables\images\sort_asc.png" />
+    <Content Include="Libraries\datatables\images\sort_asc_disabled.png" />
+    <Content Include="Libraries\datatables\images\sort_both.png" />
+    <Content Include="Libraries\datatables\images\sort_desc.png" />
+    <Content Include="Libraries\datatables\images\sort_desc_disabled.png" />
+    <Content Include="Libraries\datatables\js\dataTables.bootstrap.js" />
+    <Content Include="Libraries\datatables\js\dataTables.bootstrap.min.js" />
+    <Content Include="Libraries\datatables\js\dataTables.bootstrap4.js" />
+    <Content Include="Libraries\datatables\js\dataTables.bootstrap4.min.js" />
+    <Content Include="Libraries\datatables\js\dataTables.dataTables.js" />
+    <Content Include="Libraries\datatables\js\dataTables.dataTables.min.js" />
+    <Content Include="Libraries\datatables\js\dataTables.foundation.js" />
+    <Content Include="Libraries\datatables\js\dataTables.foundation.min.js" />
+    <Content Include="Libraries\datatables\js\dataTables.jqueryui.js" />
+    <Content Include="Libraries\datatables\js\dataTables.jqueryui.min.js" />
+    <Content Include="Libraries\datatables\js\dataTables.material.js" />
+    <Content Include="Libraries\datatables\js\dataTables.material.min.js" />
+    <Content Include="Libraries\datatables\js\dataTables.semanticui.js" />
+    <Content Include="Libraries\datatables\js\dataTables.semanticui.min.js" />
+    <Content Include="Libraries\datatables\js\dataTables.uikit.js" />
+    <Content Include="Libraries\datatables\js\dataTables.uikit.min.js" />
+    <Content Include="Libraries\datatables\js\jquery.dataTables.js" />
+    <Content Include="Libraries\datatables\js\jquery.dataTables.min.js" />
     <Content Include="Libraries\font-awesome\css\all.css" />
     <Content Include="Libraries\font-awesome\css\all.min.css" />
     <Content Include="Libraries\font-awesome\css\brands.css" />
@@ -444,11 +475,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Scss\" />
     <Folder Include="Views\Logout\" />
-    <Folder Include="Views\PrerequisiteManagement\" />
-    <Folder Include="Views\Settings\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Libraries\font-awesome\webfonts\fa-brands-400.eot" />
@@ -490,6 +518,10 @@
     <Content Include="Views\Shared\_DynamicModalLayout.cshtml" />
     <Content Include="Views\Shared\Partials\_NoResult.cshtml" />
     <Content Include="Views\Prerequisite\Add.cshtml" />
+    <Content Include="Views\DepartmentManagement\Index.cshtml" />
+    <Content Include="Views\DepartmentManagement\Create.cshtml" />
+    <Content Include="Views\DepartmentManagement\Edit.cshtml" />
+    <Content Include="Views\DepartmentManagement\EditAccounts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EnrollmentSystem.Common\EnrollmentSystem.Common.csproj">
@@ -500,6 +532,10 @@
       <Project>{0FF9DBC2-9F9A-4718-99C4-590786385A84}</Project>
       <Name>EnrollmentSystem.Data.EF</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EnrollmentSystem.Mapping\EnrollmentSystem.Mapping.csproj">
+      <Project>{07DE812F-E1D5-4965-8A5F-91AAAD5A96F2}</Project>
+      <Name>EnrollmentSystem.Mapping</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EnrollmentSystem.Model\EnrollmentSystem.Model.csproj">
       <Project>{C8DD37C7-C855-4F2D-9CF7-34D857C127CF}</Project>
       <Name>EnrollmentSystem.Model</Name>
@@ -507,6 +543,10 @@
     <ProjectReference Include="..\EnrollmentSystem.Service\EnrollmentSystem.Service.csproj">
       <Project>{E28FB091-DC46-4E1D-9750-F0D22CECB025}</Project>
       <Name>EnrollmentSystem.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EnrollmentSystem.ViewModel\EnrollmentSystem.ViewModel.csproj">
+      <Project>{e1d8ace4-9fe7-4e25-b06e-35d8edb20818}</Project>
+      <Name>EnrollmentSystem.ViewModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\EnrollmentSystem\EnrollmentSystem.csproj">
       <Project>{73f33fab-8621-4c5b-8ced-729b5c184aaa}</Project>

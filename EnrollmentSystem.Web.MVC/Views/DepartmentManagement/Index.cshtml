@@ -1,0 +1,83 @@
+﻿@model IEnumerable<DepartmentViewModel>
+
+@section toolbar
+{
+    <div class="col-4">
+        @Html.FontAwesomeActionLink("fas fa-plus", "New Department", "Create", "DepartmentManagement", null, new { @class = "btn btn-block btn-primary loadDynamicModal" })
+    </div>
+}
+
+@if (Model.Count() > 0)
+{
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive-md">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th> Code </th>
+                            <th> Title </th>
+                            <th> Description </th>
+                            <th> Created </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Department in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            @Department.Code
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            @Department.Title
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            @Department.Description
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            @Department.Created.ToCustomDateString("MMMM d, yyyy hh:mm tt")
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-12">
+
+                                            <div class="dropdown dropright">
+                                                <button class="btn dropdown-toggle remove-content-after" type="button" id="@("dropdown_" + Department.ID)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-h"></i></button>
+                                                <div class="dropdown-menu" aria-labelledby="@("dropdown_" + Department.ID)">
+                                                    @Html.ActionLink("Edit", "Edit", "DepartmentManagement", new { ID = Department.ID }, new { @class = "btn loadDynamicModal dropdown-item" })
+                                                    @Html.ActionLink("Edit Accounts", "EditAccounts", "DepartmentManagement", new { ID = Department.ID }, new { @class = "btn loadDynamicModal dropdown-item" })
+                                                    @Html.ActionLink("Remove", "Remove", "DepartmentManagement", new { ID = Department.ID }, new { @class = "btn loadDynamicModal dropdown-item" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    @Html.Partial("Partials/_NoResult")
+}

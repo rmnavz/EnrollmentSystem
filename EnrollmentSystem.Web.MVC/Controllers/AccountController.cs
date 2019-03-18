@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
+using EnrollmentSystem.Mapping.Mappings;
 using EnrollmentSystem.Model;
 using EnrollmentSystem.Service;
-using EnrollmentSystem.Web.MVC.Common.PartialModels;
-using EnrollmentSystem.Web.MVC.ViewModels;
+using EnrollmentSystem.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace EnrollmentSystem.Web.MVC.Controllers
@@ -21,11 +18,7 @@ namespace EnrollmentSystem.Web.MVC.Controllers
         }
 
         // GET: Account
-        public ActionResult Index()
-        {
-            AccountModel Account = _AccountService.GetAccount(GetUserID());
-            return View(Mapper.Map<AccountModel, AccountViewModel>(Account));
-        }
+        public ActionResult Index() => View(_AccountService.GetAccount(GetUserID()).ToAccountViewModel());
 
         public ActionResult ProfileImage() => base.File(_AccountService.GetAccount(GetUserID()).AccountInformation.ProfileImage, "image/jpg");
 
@@ -37,8 +30,7 @@ namespace EnrollmentSystem.Web.MVC.Controllers
                 FormMethod = FormMethod.Post,
                 FormType = FormType.Edit
             };
-            AccountModel Account = _AccountService.GetAccount(GetUserID());
-            return ViewModal(Mapper.Map<AccountModel, EditAccountFormViewModel>(Account), _DynamicModalOptions);
+            return ViewModal(_AccountService.GetAccount(GetUserID()).ToEditAccountFormViewModel(), _DynamicModalOptions);
         }
 
         [HttpPost]
@@ -53,9 +45,7 @@ namespace EnrollmentSystem.Web.MVC.Controllers
 
             if (!ModelState.IsValid) { return ViewModal(Model, _DynamicModalOptions); }
 
-            AccountModel Account = _AccountService.GetAccount(GetUserID());
-
-            Mapper.Map(Model, Account);
+            AccountModel Account = Model.ToAccountModel(_AccountService.GetAccount(GetUserID()));
 
             try
             {
@@ -66,6 +56,7 @@ namespace EnrollmentSystem.Web.MVC.Controllers
             }
             catch(Exception ex)
             {
+                Console.WriteLine(ex);
                 return ModalMessage("Dialog Message", "Something went wrong");
             }
 
